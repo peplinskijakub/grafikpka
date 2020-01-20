@@ -75,4 +75,16 @@ public class ScheduleServiceImpl implements ScheduleService{
         List<Schedule> schedules = new ArrayList<>();
         return null;
     }
+
+    public Optional<Schedule> deleteSchedule(String id){
+        if (id != null) {
+            Optional<Schedule>schearchSchedule = scheduleRepository.findById(id);
+            Schedule schedule = schearchSchedule.get();
+            scheduleRepository.delete(schedule);
+
+            return Optional.ofNullable(schedule);
+        }
+
+        return Optional.empty();
+    }
 }
