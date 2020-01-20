@@ -30,7 +30,7 @@ public class RozkladController {
         List<RodzajRozkladu> rozklady = rozkladService.findAll();
         model.addAttribute("rozklady", rozklady);
 
-        return "view/rodzajRozkladow/rozklads";
+        return "/rodzajRozkladow/rozklads";
     }
 
     @PostMapping(value = "/addrozklad")

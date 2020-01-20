@@ -11,7 +11,7 @@ public class UserController {
 
     @GetMapping("/index")
     public String index() {
-        return "view/users/index";
+        return "/users/index";
     }
 
 }

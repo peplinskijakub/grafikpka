@@ -1,5 +1,6 @@
 package pl.grafikpka.controllers;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,8 @@ import pl.grafikpka.service.ScheduleService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/schedule")
 public class ScheduleController {
+
     private ScheduleService scheduleService;
 
     public ScheduleController(ScheduleService scheduleService) {
@@ -27,7 +28,7 @@ public class ScheduleController {
         List<Schedule> schedules = scheduleService.findAll();
         model.addAttribute("schedules", schedules);
 
-        return "view/schedule/schedules";
+        return "/schedules";
     }
 
     @PostMapping(value = "/fileupload")
@@ -38,6 +39,6 @@ public class ScheduleController {
         } else {
             redirectAttributes.addFlashAttribute("errormessage", "File Upload not done, Please try again");
         }
-        return "redirect:/schedule/schedules";
+        return "redirect:/schedules";
     }
 }

@@ -14,9 +14,9 @@ import pl.grafikpka.repository.ScheduleRepository;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@Transactional
 public class ScheduleServiceImpl implements ScheduleService{
     private ScheduleRepository scheduleRepository;
     private RozkladRepository rozkladRepository;
@@ -28,7 +28,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public List<Schedule> findAll() {
-        return (List<Schedule>) scheduleRepository.findAll();
+        return scheduleRepository.findAll();
     }
 
     public boolean saveDataFromCsv(MultipartFile file, String date, String rozklad) {

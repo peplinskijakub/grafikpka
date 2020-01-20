@@ -1,7 +1,6 @@
 package pl.grafikpka.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.grafikpka.model.RodzajRozkladu;
 import pl.grafikpka.repository.RozkladRepository;
 
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 public class RozkladServiceImpl implements RozkladService {
     private RozkladRepository rozkladRepository;
 
@@ -19,12 +17,12 @@ public class RozkladServiceImpl implements RozkladService {
 
     @Override
     public List<RodzajRozkladu> findAll() {
-        return (List<RodzajRozkladu>) rozkladRepository.findAll();
+        return rozkladRepository.findAll();
     }
 
     @Override
     public boolean save(RodzajRozkladu rodzajRozkladu) {
-        rozkladRepository.save(rodzajRozkladu);
+        rozkladRepository.insert(rodzajRozkladu);
         return false;
     }
 
