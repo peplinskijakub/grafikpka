@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService{
@@ -24,11 +25,6 @@ public class ScheduleServiceImpl implements ScheduleService{
     public ScheduleServiceImpl(ScheduleRepository scheduleRepository, RozkladRepository rozkladRepository) {
         this.scheduleRepository = scheduleRepository;
         this.rozkladRepository = rozkladRepository;
-    }
-
-    @Override
-    public List<Schedule> findAll() {
-        return scheduleRepository.findAll();
     }
 
     public boolean saveDataFromCsv(MultipartFile file, String date, String rozklad) {
@@ -59,6 +55,16 @@ public class ScheduleServiceImpl implements ScheduleService{
         }
     }
 
+    @Override
+    public List<Schedule> findAll() {
+        return scheduleRepository.findAll();
+    }
+
+    public Schedule findById (String id){
+     return scheduleRepository.findById(id).orElse(null);
+    }
+
+
     String findAllByTypRozkladu(String typRozkladu, String startLine, String godz) {
         List<RodzajRozkladu> rozkladList = new ArrayList<>();
         rozkladRepository.findAll().forEach(rozkladList::add);
@@ -72,11 +78,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public List<Schedule> findByDate(String date) {
-        List<Schedule> schedules = new ArrayList<>();
         return null;
     }
 
-    public Optional<Schedule> deleteSchedule(String id){
+    public Optional<Schedule> deleteById(String id){
         if (id != null) {
             Optional<Schedule>schearchSchedule = scheduleRepository.findById(id);
             Schedule schedule = schearchSchedule.get();
