@@ -47,7 +47,8 @@
             </form>
         </div>
         <div class="col-md-12">
-            <h2>All Users</h2>
+            <!--/*@thymesVar id="Schedule" type="pl.grafikpka.model.Schedule"*/-->
+            <h2 th:object="${Schedule.date}">Grafik na dzień</h2>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -63,6 +64,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <!--/*@thymesVar id="schedules" type="pl.grafikpka.model.Schedule"*/-->
                 <tr th:each="schedule : ${schedules}">
                     <td th:text="${schedule.date}">20:01:2019</td>
                     <td th:text="${schedule.rodzajRozkladu}">SOBOTA</td>
@@ -73,12 +75,10 @@
                     <td th:text="${schedule.miejsceZmiany}">zmiana</td>
                     <td>
                         <div class="form-check">
-                            <button class="btn btn-primary" type="submit">Zmień</button>
+                            <button class="btn btn-outline-secondary" type="submit">Zmień</button>
                         </div>
                     </td>
-                    <td><div class="form-check">
-                        <button class="btn btn-primary" type="submit">Usuń</button>
-                    </div></td>
+                    <td><a href="#" th:href="@{'/listschedules/' + ${schedule.id} + '/delete'}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>

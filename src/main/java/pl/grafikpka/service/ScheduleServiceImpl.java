@@ -4,7 +4,6 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import pl.grafikpka.model.RodzajRozkladu;
 import pl.grafikpka.model.Schedule;
@@ -12,13 +11,11 @@ import pl.grafikpka.repository.RozkladRepository;
 import pl.grafikpka.repository.ScheduleRepository;
 
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
-public class ScheduleServiceImpl implements ScheduleService{
+public class ScheduleServiceImpl implements ScheduleService {
     private ScheduleRepository scheduleRepository;
     private RozkladRepository rozkladRepository;
 
@@ -33,7 +30,6 @@ public class ScheduleServiceImpl implements ScheduleService{
             InputStreamReader reader = new InputStreamReader(file.getInputStream());
             CSVParser csvParser = new CSVParser(reader, CSVFormat.newFormat(';')
                     .withRecordSeparator(";").withIgnoreEmptyLines());
-
             for (CSVRecord record : csvParser) {
                 Schedule schedule = new Schedule();
                 schedule.setDate(date);
@@ -60,8 +56,8 @@ public class ScheduleServiceImpl implements ScheduleService{
         return scheduleRepository.findAll();
     }
 
-    public Schedule findById (String id){
-     return scheduleRepository.findById(id).orElse(null);
+    public Schedule findById(String id) {
+        return scheduleRepository.findById(id).orElse(null);
     }
 
 
@@ -72,24 +68,20 @@ public class ScheduleServiceImpl implements ScheduleService{
                 .filter(r -> r.getTypRozkladu().equals(typRozkladu) &&
                         r.getLinia().equals(startLine)
                         && r.getGodzina().equals(godz))
-                .map(RodzajRozkladu::getMiejsceZmiany).findAny().orElse("");
-
+                .map(RodzajRozkladu::getMiejsceZmiany).findAny().orElse(null);
     }
 
     @Override
-    public List<Schedule> findByDate(String date) {
-        return null;
+    public Set<Schedule> findByDate(String date) {
+        Set<Schedule> scheduleSet = new HashSet<>();
+        scheduleRepository.findAll().stream()
+                .map(schedule -> schedule.getDate().equals(date))
+                .collect(Collectors.toSet());
+        return  scheduleSet;
     }
 
-    public Optional<Schedule> deleteById(String id){
-        if (id != null) {
-            Optional<Schedule>schearchSchedule = scheduleRepository.findById(id);
-            Schedule schedule = schearchSchedule.get();
-            scheduleRepository.delete(schedule);
-
-            return Optional.ofNullable(schedule);
-        }
-
-        return Optional.empty();
+    @Override
+    public void deleteById(String idToDelete) {
+        scheduleRepository.deleteById(idToDelete);
     }
 }
