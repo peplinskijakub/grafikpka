@@ -47,7 +47,6 @@
             </form>
         </div>
         <div class="col-md-12">
-            <h2>All Users</h2>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -62,6 +61,8 @@
                     <th>Usuń</th>
                 </tr>
                 </thead>
+                <!--/*@thymesVar id="schedules" type="java.util.List"*/-->
+                <!--/*@thymesVar id="schedules" type="pl.grafikpka.model.Schedule"*/-->
                 <tbody>
                 <tr th:each="schedule : ${schedules}">
                     <td th:text="${schedule.date}">20:01:2019</td>
@@ -71,7 +72,8 @@
                     <td th:text="${schedule.poczatekPracy}">12:00</td>
                     <td th:text="${schedule.koniecPracy}">19.59</td>
                     <td th:text="${schedule.miejsceZmiany}">zmiana</td>
-                    <td><a href="#" th:href="@{'/listschedules/' + ${schedule.id}+ '/update'}">Update</a></td>
+
+                    <td><a href="#" th:href="@{'/schedule/' + ${schedule.id} + '/update'}">Edit</a></td>
                     <td><a href="#" th:href="@{'/listschedules/' + ${schedule.id} + '/delete'}">Delete</a></td>
                 </tr>
                 </tbody>

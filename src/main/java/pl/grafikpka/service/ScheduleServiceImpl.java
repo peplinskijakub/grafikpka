@@ -1,9 +1,12 @@
 package pl.grafikpka.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import pl.grafikpka.model.RodzajRozkladu;
 import pl.grafikpka.model.Schedule;
@@ -13,7 +16,7 @@ import pl.grafikpka.repository.ScheduleRepository;
 import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
     private ScheduleRepository scheduleRepository;
@@ -41,7 +44,6 @@ public class ScheduleServiceImpl implements ScheduleService {
                 schedule.setMiejsceZmiany(findAllByTypRozkladu(rozklad, schedule.getLinia(), schedule.getPoczatekPracy()));
                 if (record.get(0).isEmpty())
                     continue;
-
                 scheduleList.add(schedule);
             }
             scheduleRepository.saveAll(scheduleList);
@@ -56,8 +58,18 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.findAll();
     }
 
+    @Override
+    @Transactional
     public Schedule findById(String id) {
-        return scheduleRepository.findById(id).orElse(null);
+        Optional<Schedule> scheduleOptional = scheduleRepository.findById(id);
+        if (!scheduleOptional.isPresent()){
+            try {
+                throw  new NotFound();
+            } catch (NotFound notFound) {
+                notFound.printStackTrace();
+            }
+        }
+        return scheduleOptional.get();
     }
 
 

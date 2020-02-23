@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface ScheduleService {
+
     List<Schedule> findAll();
 
     Set<Schedule> findByDate(String date);
@@ -15,4 +16,6 @@ public interface ScheduleService {
     boolean saveDataFromCsv(MultipartFile file, String date, String rozklad);
 
     void deleteById(String id);
+
+    Schedule findById(String id);
 }
