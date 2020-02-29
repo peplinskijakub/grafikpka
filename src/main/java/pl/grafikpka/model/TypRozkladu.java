@@ -11,10 +11,10 @@ public enum  TypRozkladu {
     POWSZDNI_WAKACJE("Powszedni wakacje"),
     SPECJALNY("Specjalny");
 
-    private final String dispayValue;
+    private String dispayValue;
 
-    TypRozkladu(String dispayValue) {
-        this.dispayValue = dispayValue;
+    TypRozkladu(String displayValue) {
+        this.dispayValue = displayValue;
     }
 
     public String getDispayValue() {
