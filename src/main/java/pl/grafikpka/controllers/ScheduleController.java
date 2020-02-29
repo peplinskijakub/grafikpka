@@ -2,22 +2,21 @@ package pl.grafikpka.controllers;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.grafikpka.model.Schedule;
 import pl.grafikpka.repository.ScheduleRepository;
 import pl.grafikpka.service.ScheduleService;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Controller
@@ -87,6 +86,15 @@ public class ScheduleController {
         model.addAttribute("schedule", scheduleRepository.findAll());
         log.info("Updated id: " + schedule.getId());
         return "redirect:/listschedules";
+    }
+
+    @GetMapping("/busDriver/{nrSluzbowy}")
+    public String schowDriverWork(@PathVariable("nrSluzbowy") String nrSluzbowy, Model model){
+        model.addAttribute("schedule", new Schedule());
+       Set<Schedule> schedules = scheduleService.findScheduleByNrSluzbowy(nrSluzbowy);
+        model.addAttribute("schedules", schedules);
+
+        return "/schedule/workDay";
     }
 }
 

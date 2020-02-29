@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface ScheduleRepository extends MongoRepository<Schedule,String> {
 
-    @Override
     Optional<Schedule> findById(String id);
+
+    Schedule findScheduleByNrSluzbowy(String nrSluzbowy);
 }

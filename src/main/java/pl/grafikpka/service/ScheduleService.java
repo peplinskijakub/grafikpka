@@ -1,5 +1,6 @@
 package pl.grafikpka.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import pl.grafikpka.model.Schedule;
 
@@ -10,6 +11,11 @@ public interface ScheduleService {
 
     List<Schedule> findAll();
 
+    @Transactional
+    Schedule findById(String id);
+
+    Set<Schedule> findScheduleByNrSluzbowy(String workNb);
+
     Set<Schedule> findByDate(String date);
 
 
@@ -17,5 +23,4 @@ public interface ScheduleService {
 
     void deleteById(String id);
 
-    Schedule findById(String id);
 }

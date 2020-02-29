@@ -72,8 +72,15 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleOptional.get();
     }
 
+    @Override
+    public Set<Schedule> findScheduleByNrSluzbowy(String nrSluzbowy) {
+        return scheduleRepository.findAll().stream()
+                .filter(schedule -> schedule.getNrSluzbowy()
+                .equals(nrSluzbowy)).collect(Collectors.toSet());
+    }
 
-    String findAllByTypRozkladu(String typRozkladu, String startLine, String godz) {
+
+   public String findAllByTypRozkladu(String typRozkladu, String startLine, String godz) {
         List<RodzajRozkladu> rozkladList = new ArrayList<>();
         rozkladRepository.findAll().forEach(rozkladList::add);
         return rozkladList.stream()
