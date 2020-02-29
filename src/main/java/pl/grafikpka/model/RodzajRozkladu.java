@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 @Repository
@@ -16,7 +18,8 @@ public class RodzajRozkladu {
 
     @Id
     private String id;
-    private String typRozkladu;
+    @Enumerated(EnumType.ORDINAL)
+    private TypRozkladu typRozkladu;
     private String linia;
     private String brygada;
     private String godzina;

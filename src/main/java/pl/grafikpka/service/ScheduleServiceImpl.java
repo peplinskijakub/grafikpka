@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import pl.grafikpka.model.RodzajRozkladu;
 import pl.grafikpka.model.Schedule;
+import pl.grafikpka.model.TypRozkladu;
 import pl.grafikpka.repository.RozkladRepository;
 import pl.grafikpka.repository.ScheduleRepository;
 
@@ -27,7 +28,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         this.rozkladRepository = rozkladRepository;
     }
 
-    public boolean saveDataFromCsv(MultipartFile file, String date, String rozklad) {
+    public boolean saveDataFromCsv(MultipartFile file, String date, TypRozkladu typRozkladu) {
         List<Schedule> scheduleList = new ArrayList<>();
         try {
             InputStreamReader reader = new InputStreamReader(file.getInputStream());
@@ -36,12 +37,12 @@ public class ScheduleServiceImpl implements ScheduleService {
             for (CSVRecord record : csvParser) {
                 Schedule schedule = new Schedule();
                 schedule.setDate(date);
-                schedule.setRodzajRozkladu(rozklad);
+                schedule.setTypRozkladu(typRozkladu);
                 schedule.setNrSluzbowy(record.get(0).trim());
                 schedule.setLinia(record.get(1).trim());
                 schedule.setPoczatekPracy(record.get(2).trim());
                 schedule.setKoniecPracy(record.get(3).trim());
-                schedule.setMiejsceZmiany(findAllByTypRozkladu(rozklad, schedule.getLinia(), schedule.getPoczatekPracy()));
+                schedule.setMiejsceZmiany(findAllByTypRozkladu(typRozkladu.name(), schedule.getLinia(), schedule.getPoczatekPracy()));
                 if (record.get(0).isEmpty())
                     continue;
                 scheduleList.add(schedule);

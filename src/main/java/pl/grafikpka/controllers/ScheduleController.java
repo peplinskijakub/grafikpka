@@ -42,7 +42,7 @@ public class ScheduleController {
 
     @PostMapping(value = "/fileupload")
     public String uploadFile(@ModelAttribute Schedule schedule, RedirectAttributes redirectAttributes) {
-        boolean isFlag = scheduleService.saveDataFromCsv(schedule.getFile(), schedule.getDate(), String.valueOf(schedule.getRodzajRozkladu()));
+        boolean isFlag = scheduleService.saveDataFromCsv(schedule.getFile(), schedule.getDate(), schedule.getTypRozkladu());
         log.info("Wczytanie danych" + schedule.getDate());
         if (isFlag) {
             redirectAttributes.addAttribute("date", schedule.getDate());
@@ -73,7 +73,8 @@ public class ScheduleController {
         if (result.hasErrors()) {
             schedule.setId(schedule.getId());
             schedule.setDate(schedule.getDate());
-            schedule.setRodzajRozkladu(schedule.getRodzajRozkladu());
+            //schedule.setRodzajRozkladu(schedule.getRodzajRozkladu());
+            schedule.setTypRozkladu(schedule.getTypRozkladu());
             schedule.setNrSluzbowy(schedule.getNrSluzbowy());
             schedule.setLinia(schedule.getLinia());
             schedule.setPoczatekPracy(schedule.getPoczatekPracy());

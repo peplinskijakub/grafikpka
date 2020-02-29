@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Document
 @Data
@@ -19,9 +21,9 @@ public class Schedule {
     private String id;
     @Column(name = "date")
     private String date;
-    //@Enumerated(value = EnumType.STRING)
-    @Column(name = "rodzaj_rozkladu")
-    private String rodzajRozkladu;
+    @Enumerated(value = EnumType.ORDINAL)
+    @Column(name = "typ_rozkladu")
+    private TypRozkladu typRozkladu;
     @Column(name = "nr_sluzbowy")
     private String nrSluzbowy;
     @Column(name = "linia")
