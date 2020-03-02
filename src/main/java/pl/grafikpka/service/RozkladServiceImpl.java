@@ -2,6 +2,7 @@ package pl.grafikpka.service;
 
 import org.springframework.stereotype.Service;
 import pl.grafikpka.model.RodzajRozkladu;
+import pl.grafikpka.model.TypRozkladu;
 import pl.grafikpka.repository.RozkladRepository;
 
 import java.util.ArrayList;
@@ -15,17 +16,6 @@ public class RozkladServiceImpl implements RozkladService {
         this.rozkladRepository = rozkladRepository;
     }
 
-    @Override
-    public List<RodzajRozkladu> findAll() {
-        return rozkladRepository.findAll();
-    }
-
-    @Override
-    public boolean save(RodzajRozkladu rodzajRozkladu) {
-        rozkladRepository.insert(rodzajRozkladu);
-        return false;
-    }
-
     String findAllByTypRozkladu(String typRozkladu, String startLine, String godz) {
         List<RodzajRozkladu> rozkladList = new ArrayList<>();
         rozkladRepository.findAll().forEach(rozkladList::add);
@@ -35,5 +25,32 @@ public class RozkladServiceImpl implements RozkladService {
                         && r.getGodzina().equals(godz))
                 .map(RodzajRozkladu::getMiejsceZmiany).findAny().orElse("");
 
+    }
+
+   public boolean saveRozklad(TypRozkladu typRozkladu, String linia, String brygada, String godzina,
+                        String miejsceZmiany, String pierwszaLinia) {
+        try {
+            RodzajRozkladu rozklad = new RodzajRozkladu();
+            rozklad.setTypRozkladu(typRozkladu);
+            rozklad.setLinia(linia);
+            rozklad.setBrygada(brygada);
+            rozklad.setGodzina(godzina);
+            rozklad.setMiejsceZmiany(miejsceZmiany);
+            rozklad.setPierwszaLinia(pierwszaLinia);
+            this.rozkladRepository.save(rozklad);
+            return true;
+        } catch (Exception e) {
+            return false;
+    }
+    }
+
+    @Override
+    public List<RodzajRozkladu> findAll() {
+        return rozkladRepository.findAll();
+    }
+
+    @Override
+    public RodzajRozkladu save(RodzajRozkladu rodzajRozkladu) {
+        return rozkladRepository.save(rodzajRozkladu);
     }
 }

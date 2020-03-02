@@ -10,18 +10,12 @@
            <input type="date" th:field="*{date}" id="date" placeholder="Data">
            <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></span>
            <div class="col-md-2">
-               <label for="rozklady">Rodzaj rozkladu</label>
-               <select class="form-control" id="rozklady" th:field="*{rodzajRozkladu}">
-                   <option value="Powszedni Szkolny">Powszedni Szkolny</option>
-                   <option value="Sobota">Sobota</option>
-                   <option value="Niedziela">Niedziela</option>
-                   <option value="Powszedni Ferie">Powszedni Ferie</option>
-                   <option value="Powszedni Wakacje">Powszedni Wakacje</option>
-                   <option value="Specjalny">Specjalny</option>
+               <label for="typRozkladu">Typ Rozkladu</label>
+               <select class="form-control" id="typRozkladu" name="typRozkladu" th:field="*{typRozkladu}">
+                   <option th:each="typOpt : ${T(pl.grafikpka.model.TypRozkladu).values()}"
+                           th:value="${typOpt}" th:text="${typOpt.getDispayValue()}"></option>
                </select>
            </div>
-           <span th:if="${#fields.hasErrors('rodzajRozkladu')}" th:errors="*{rodzajRozkladu}"></span>
-
            <input type="text" th:field="*{nrSluzbowy}" id="text" placeholder="Nr Służbowy">
            <span th:if="${#fields.hasErrors('nrSluzbowy')}" th:errors="*{nrSluzbowy}"></span>
 

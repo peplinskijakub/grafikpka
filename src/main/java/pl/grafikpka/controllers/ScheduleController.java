@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.grafikpka.model.Schedule;
-import pl.grafikpka.repository.ScheduleRepository;
 import pl.grafikpka.service.ScheduleService;
 
 import javax.validation.Valid;
@@ -24,11 +23,10 @@ public class ScheduleController {
 
     private static final   String SCHEDULE_SCHEDULEFORM_URL = "schedule/scheduleform";
     private ScheduleService scheduleService;
-    private ScheduleRepository scheduleRepository;
 
-    public ScheduleController(ScheduleService scheduleService, ScheduleRepository scheduleRepository) {
+
+    public ScheduleController(ScheduleService scheduleService) {
         this.scheduleService = scheduleService;
-        this.scheduleRepository = scheduleRepository;
     }
 
     @GetMapping(value = "/listschedules")
@@ -61,8 +59,8 @@ public class ScheduleController {
         return "redirect:/listschedules";
     }
     @GetMapping("schedule/{id}/update")
-    public String updateRecipe(@PathVariable String id, Model model){
-        model.addAttribute("schedule", scheduleRepository.findById(id));
+    public String update(@PathVariable String id, Model model){
+        model.addAttribute("schedule", scheduleService.findById(id));
         log.info("Id to Update: " + id);
         return SCHEDULE_SCHEDULEFORM_URL;
     }
@@ -73,7 +71,6 @@ public class ScheduleController {
         if (result.hasErrors()) {
             schedule.setId(schedule.getId());
             schedule.setDate(schedule.getDate());
-            //schedule.setRodzajRozkladu(schedule.getRodzajRozkladu());
             schedule.setTypRozkladu(schedule.getTypRozkladu());
             schedule.setNrSluzbowy(schedule.getNrSluzbowy());
             schedule.setLinia(schedule.getLinia());
@@ -83,8 +80,8 @@ public class ScheduleController {
             return SCHEDULE_SCHEDULEFORM_URL;
         }
 
-        scheduleRepository.save(schedule);
-        model.addAttribute("schedule", scheduleRepository.findAll());
+        scheduleService.save(schedule);
+        model.addAttribute("schedule", scheduleService.findAll());
         log.info("Updated id: " + schedule.getId());
         return "redirect:/listschedules";
     }

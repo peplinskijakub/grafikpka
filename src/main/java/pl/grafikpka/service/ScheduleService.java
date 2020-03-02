@@ -10,8 +10,6 @@ import java.util.Set;
 
 public interface ScheduleService {
 
-    List<Schedule> findAll();
-
     @Transactional
     Schedule findById(String id);
 
@@ -24,4 +22,7 @@ public interface ScheduleService {
 
     void deleteById(String id);
 
+    List<Schedule> findAll();
+
+    Schedule save(Schedule schedule);
 }

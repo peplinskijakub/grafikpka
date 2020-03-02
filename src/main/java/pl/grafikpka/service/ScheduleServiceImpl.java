@@ -17,6 +17,7 @@ import pl.grafikpka.repository.ScheduleRepository;
 import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -55,17 +56,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> findAll() {
-        return scheduleRepository.findAll();
-    }
-
-    @Override
     @Transactional
     public Schedule findById(String id) {
         Optional<Schedule> scheduleOptional = scheduleRepository.findById(id);
-        if (!scheduleOptional.isPresent()){
+        if (!scheduleOptional.isPresent()) {
             try {
-                throw  new NotFound();
+                throw new NotFound();
             } catch (NotFound notFound) {
                 notFound.printStackTrace();
             }
@@ -77,11 +73,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Set<Schedule> findScheduleByNrSluzbowy(String nrSluzbowy) {
         return scheduleRepository.findAll().stream()
                 .filter(schedule -> schedule.getNrSluzbowy()
-                .equals(nrSluzbowy)).collect(Collectors.toSet());
+                        .equals(nrSluzbowy)).collect(Collectors.toSet());
     }
 
 
-   public String findAllByTypRozkladu(String typRozkladu, String startLine, String godz) {
+    public String findAllByTypRozkladu(String typRozkladu, String startLine, String godz) {
         List<RodzajRozkladu> rozkladList = new ArrayList<>();
         rozkladRepository.findAll().forEach(rozkladList::add);
         return rozkladList.stream()
@@ -97,11 +93,21 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleRepository.findAll().stream()
                 .map(schedule -> schedule.getDate().equals(date))
                 .collect(Collectors.toSet());
-        return  scheduleSet;
+        return scheduleSet;
     }
 
     @Override
     public void deleteById(String idToDelete) {
         scheduleRepository.deleteById(idToDelete);
+    }
+
+    @Override
+    public List<Schedule> findAll() {
+        return scheduleRepository.findAll();
+    }
+
+    @Override
+    public Schedule save(Schedule schedule) {
+        return scheduleRepository.save(schedule);
     }
 }

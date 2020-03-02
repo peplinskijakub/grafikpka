@@ -13,7 +13,7 @@ public enum  TypRozkladu {
 
     private String dispayValue;
 
-    TypRozkladu(String displayValue) {
+    private TypRozkladu(String displayValue) {
         this.dispayValue = displayValue;
     }
 
