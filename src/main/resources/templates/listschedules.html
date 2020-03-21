@@ -61,7 +61,7 @@
                 <tbody>
                 <tr th:each="schedule : ${schedules}">
                     <td th:text="${schedule.date}">20:01:2019</td>
-                    <td th:text="${schedule.typRozkladu}">SOBOTA</td>
+                    <td th:text="${schedule.typRozkladu.dispayValue}">SOBOTA</td>
                     <td th:text="${schedule.nrSluzbowy}">1111</td>
                     <td th:text="${schedule.linia}">111</td>
                     <td th:text="${schedule.poczatekPracy}">12:00</td>

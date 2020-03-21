@@ -49,6 +49,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 scheduleList.add(schedule);
             }
             scheduleRepository.saveAll(scheduleList);
+            csvParser.close();
             return true;
         } catch (Exception e) {
             return false;
