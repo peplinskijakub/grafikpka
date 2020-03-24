@@ -16,14 +16,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
+
                 .withUser("admin")
                 .password(passwordEncoder().encode("admin123"))
                 .roles("ADMIN")
+
                 .and()
+
                 .withUser("pepe")
                 .password(passwordEncoder().encode("pepe123"))
                 .roles("USER")
+
                 .and()
+
                 .withUser("manager")
                 .password(passwordEncoder().encode("manager123"))
                 .roles("MANAGER");
@@ -35,8 +40,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/index.html")
                 .permitAll() //do startowej wszyscy
-                .antMatchers("/users/**").authenticated() //dla użutkownika
+                .antMatchers("/users/**").authenticated() //dla użytkownika
                 .antMatchers("admin/**").hasRole("ADMIN")
+                .antMatchers("/api/public/users").hasRole("ADMIN")
                 .antMatchers("/listschedules", "rodzajRozkladow/**", "schedule/**", "/rozklads")
                 .hasAnyRole("ADMIN", "MANAGER")
                 .and()
