@@ -2,6 +2,7 @@ package pl.grafikpka.sec;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,26 +13,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    private UserPrincipalDetailService userPrincipalDetailService;
+
+    public SecurityConfiguration(UserPrincipalDetailService userPrincipalDetailService) {
+        this.userPrincipalDetailService = userPrincipalDetailService;
+    }
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(authenticationProvider());
 
-                .withUser("admin")
-                .password(passwordEncoder().encode("admin123"))
-                .roles("ADMIN")
-
-                .and()
-
-                .withUser("pepe")
-                .password(passwordEncoder().encode("pepe123"))
-                .roles("USER")
-
-                .and()
-
-                .withUser("manager")
-                .password(passwordEncoder().encode("manager123"))
-                .roles("MANAGER");
     }
 
     @Override
@@ -43,10 +34,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/**").authenticated() //dla użytkownika
                 .antMatchers("admin/**").hasRole("ADMIN")
                 .antMatchers("/api/public/users").hasRole("ADMIN")
-                .antMatchers("/listschedules", "rodzajRozkladow/**", "schedule/**", "/rozklads")
-                .hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/listschedules", "rodzajRozkladow/**", "schedule/**", "/rozklads").hasAnyRole("ADMIN", "MANAGER")
                 .and()
                 .httpBasic();
+    }
+
+    @Bean
+    DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailService);
+        return daoAuthenticationProvider;
     }
 
     @Bean

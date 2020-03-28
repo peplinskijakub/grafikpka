@@ -19,16 +19,19 @@ public class UserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-//extract list of permissions(name)
-        this.user.getPermissionList().forEach(p->{
+
+        // Extract list of permissions (name)
+        this.user.getPermissionList().forEach(p -> {
             GrantedAuthority authority = new SimpleGrantedAuthority(p);
             authorities.add(authority);
         });
-        //extract list of roles(Role_name)
-        this.user.getRoleList().forEach(r->{
-            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+r);
+
+        // Extract list of roles (ROLE_name)
+        this.user.getRoleList().forEach(r -> {
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
             authorities.add(authority);
         });
+
         return authorities;
     }
 
@@ -44,7 +47,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;//active in user entity
+        return true;
     }
 
     @Override
@@ -59,6 +62,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.user.getActive()==1;
+        return this.user.getActive() == 1;
     }
 }

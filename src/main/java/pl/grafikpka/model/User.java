@@ -2,6 +2,8 @@ package pl.grafikpka.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Document
 public class User {
 
@@ -19,43 +22,38 @@ public class User {
     private String id;
 
     @Column(nullable = false)
+    @NonNull
     private String username;
 
     @Column(nullable = false)
+    @NonNull
     private String password;
 
+    @NonNull
     private int active;
 
     private String roles = "";
 
     private String permissions = "";
 
-    public User(String id, String username, String password, int active, String roles, String permissions) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.active = 1;
-        this.roles = roles;
-        this.permissions = permissions;
-    }
-
-    public User(String username, String password, String roles, String permissions) {
+    public User(@NonNull String username, @NonNull String password, String roles, String permissions) {
         this.username = username;
         this.password = password;
         this.roles = roles;
         this.permissions = permissions;
+        this.active =1;
     }
 
     public List<String> getRoleList(){
         if (this.roles.length()>0){
-            return Arrays.asList(this.roles.split("'"));
+            return Arrays.asList(this.roles.split(","));
         }
         return new ArrayList<>();
     }
 
     public List<String> getPermissionList(){
         if (this.permissions.length()>0){
-            return Arrays.asList(this.permissions.split("'"));
+            return Arrays.asList(this.permissions.split(","));
         }
         return new ArrayList<>();
     }
