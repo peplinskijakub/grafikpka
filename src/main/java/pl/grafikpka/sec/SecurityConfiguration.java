@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -32,11 +33,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html")
                 .permitAll() //do startowej wszyscy
                 .antMatchers("/users/**").authenticated() //dla użytkownika
-                .antMatchers("admin/**").hasRole("ADMIN")
-                .antMatchers("/api/public/users").hasRole("ADMIN")
+                .antMatchers("/api/public/users", "/admin/**").hasRole("ADMIN")
                 .antMatchers("/listschedules", "rodzajRozkladow/**", "schedule/**", "/rozklads").hasAnyRole("ADMIN", "MANAGER")
                 .and()
-                .httpBasic();
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .usernameParameter("txtUsername")
+                .passwordParameter("txtPassword")
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/index")
+                .and()
+                .rememberMe().tokenValiditySeconds(2592000);
     }
 
     @Bean
