@@ -37,15 +37,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/listschedules", "rodzajRozkladow/**", "schedule/**", "/rozklads").hasAnyRole("ADMIN", "MANAGER")
                 .and()
                 .formLogin()
+                .loginProcessingUrl("/signin")
                 .loginPage("/login").permitAll()
                 .usernameParameter("txtUsername")
                 .passwordParameter("txtPassword")
                 .and()
                 .logout()
+                //.invalidateHttpSession(true)
+               // .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/index")
                 .and()
-                .rememberMe().tokenValiditySeconds(2592000).key("grafikCiAcho");
+                .rememberMe().tokenValiditySeconds(2592000).key("mySecret!")
+                .rememberMeParameter("checkRememberMe");
     }
 
     @Bean
