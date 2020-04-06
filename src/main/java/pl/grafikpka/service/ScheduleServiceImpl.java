@@ -35,6 +35,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             InputStreamReader reader = new InputStreamReader(file.getInputStream());
             CSVParser csvParser = new CSVParser(reader, CSVFormat.newFormat(';')
                     .withRecordSeparator(";").withIgnoreEmptyLines());
+            List<RodzajRozkladu> rozkladList = rozkladRepository.findAll();
             for (CSVRecord record : csvParser) {
                 Schedule schedule = new Schedule();
                 schedule.setDate(date);
@@ -43,7 +44,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 schedule.setLinia(record.get(1).trim());
                 schedule.setPoczatekPracy(record.get(2).trim());
                 schedule.setKoniecPracy(record.get(3).trim());
-                schedule.setMiejsceZmiany(findAllByTypRozkladu(typRozkladu.name(), schedule.getLinia(), schedule.getPoczatekPracy()));
+                schedule.setMiejsceZmiany(findAllByTypRozkladu(rozkladList,typRozkladu.name(), schedule.getLinia(), schedule.getPoczatekPracy()));
                 if (record.get(0).isEmpty())
                     continue;
                 scheduleList.add(schedule);
@@ -79,10 +80,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
 
-    public String findAllByTypRozkladu(String typRozkladu, String startLine, String godz) {
-        List<RodzajRozkladu> rozkladList = new ArrayList<>();
-        rozkladRepository.findAll().forEach(rozkladList::add);
-        return rozkladList.stream()
+    public String findAllByTypRozkladu(List<RodzajRozkladu>rozkladList, String typRozkladu, String startLine, String godz) {
+       return rozkladList.stream()
                 .filter(r -> r.getTypRozkladu().equals(typRozkladu) &&
                         r.getLinia().equals(startLine)
                         && r.getGodzina().equals(godz))
