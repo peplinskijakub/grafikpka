@@ -24,8 +24,8 @@
         <tbody>
         <tr th:each="schedule : ${schedules}">
             <td th:text="${schedule.date}">20:01:2019</td>
-            <td th:text="${schedule.rodzajRozkladu}">SOBOTA</td>
-            <td th:text="${schedule.nrSluzbowy}">1111</td>
+            <td th:text="${schedule.typRozkladu}">SOBOTA</td>
+            <td th:text="${schedule.getUsername}">1111</td>
             <td th:text="${schedule.linia}">111</td>
             <td th:text="${schedule.poczatekPracy}">12:00</td>
             <td th:text="${schedule.koniecPracy}">19.59</td>

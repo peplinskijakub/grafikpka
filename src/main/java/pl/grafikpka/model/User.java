@@ -30,18 +30,18 @@ public class User {
     private String password;
 
     @NonNull
-    private int active;
+    private boolean isActive;
 
     private String roles = "";
 
     private String permissions = "";
 
-    public User(@NonNull String username, @NonNull String password, String roles, String permissions) {
+    public User(@NonNull String username, @NonNull String password,boolean isActive, String roles, String permissions) {
         this.username = username;
         this.password = password;
+        this.isActive=isActive;
         this.roles = roles;
         this.permissions = permissions;
-        this.active =1;
     }
 
     public List<String> getRoleList(){

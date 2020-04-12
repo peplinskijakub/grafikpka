@@ -16,8 +16,8 @@
                            th:value="${typOpt}" th:text="${typOpt.getDispayValue()}"></option>
                </select>
            </div>
-           <input type="text" th:field="*{nrSluzbowy}" id="text" placeholder="Nr Służbowy">
-           <span th:if="${#fields.hasErrors('nrSluzbowy')}" th:errors="*{nrSluzbowy}"></span>
+           <input type="text" th:field="*{getUsername}" id="text" placeholder="Nr Służbowy">
+           <span th:if="${#fields.hasErrors('nrSluzbowy')}" th:errors="*{getUsername}"></span>
 
            <input type="text" th:field="*{linia}" id="text" placeholder="linia">
            <span th:if="${#fields.hasErrors('linia')}" th:errors="*{linia}"></span>
