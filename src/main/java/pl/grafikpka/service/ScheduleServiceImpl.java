@@ -40,7 +40,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 Schedule schedule = new Schedule();
                 schedule.setDate(date);
                 schedule.setTypRozkladu(typRozkladu);
-                schedule.setNrSluzbowy(record.get(0).trim());
+                schedule.setUsername(record.get(0).trim());
                 schedule.setLinia(record.get(1).trim());
                 schedule.setPoczatekPracy(record.get(2).trim());
                 schedule.setKoniecPracy(record.get(3).trim());
@@ -73,10 +73,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Set<Schedule> findScheduleByNrSluzbowy(String nrSluzbowy) {
+    public Set<Schedule> findSchedulesByUsename(String username) {
         return scheduleRepository.findAll().stream()
-                .filter(schedule -> schedule.getNrSluzbowy()
-                        .equals(nrSluzbowy)).collect(Collectors.toSet());
+                .filter(schedule -> schedule.getUsername()
+                        .equals(username)).collect(Collectors.toSet());
     }
 
 

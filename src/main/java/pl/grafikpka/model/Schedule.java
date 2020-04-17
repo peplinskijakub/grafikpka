@@ -24,8 +24,8 @@ public class Schedule {
     @Enumerated(value = EnumType.ORDINAL)
     @Column(name = "typ_rozkladu")
     private TypRozkladu typRozkladu;
-    @Column(name = "nr_sluzbowy")
-    private String nrSluzbowy;
+    @Column(name = "username")
+    private String username;
     @Column(name = "linia")
     private String linia;
     @Column(name = "poczatekPracy")

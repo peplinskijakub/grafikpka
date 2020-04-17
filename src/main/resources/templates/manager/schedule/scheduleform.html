@@ -4,7 +4,7 @@
 <body>
 <header th:insert="fragments.html :: nav"></header>
    <div class="container">
-       <form th:object="${schedule}" th:action="@{/schedule/}" method="post">
+       <form th:object="${schedule}" th:action="@{/manager/schedule/}" method="post">
            <input type="hidden" th:field="*{id}" id="id" placeholder="id">
            <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></span>
            <input type="date" th:field="*{date}" id="date" placeholder="Data">
@@ -16,8 +16,8 @@
                            th:value="${typOpt}" th:text="${typOpt.getDispayValue()}"></option>
                </select>
            </div>
-           <input type="text" th:field="*{getUsername}" id="text" placeholder="Nr Służbowy">
-           <span th:if="${#fields.hasErrors('nrSluzbowy')}" th:errors="*{getUsername}"></span>
+           <input type="text" th:field="*{username}" id="text" placeholder="Nr Służbowy">
+           <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 
            <input type="text" th:field="*{linia}" id="text" placeholder="linia">
            <span th:if="${#fields.hasErrors('linia')}" th:errors="*{linia}"></span>

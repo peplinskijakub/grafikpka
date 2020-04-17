@@ -21,7 +21,7 @@
                 <strong th:text="${errormessage}"></strong>
             </div>
 
-            <form th:action="@{'/fileupload'}" th:object="${schedule}" method="post"
+            <form th:action="@{'/manager/fileupload'}" th:object="${schedule}" method="post"
                   enctype="multipart/form-data">
                 <div class="form-group col-md-3">
                     <label for="file">File Upload(CSV)</label>
@@ -62,14 +62,14 @@
                 <tr th:each="schedule : ${schedules}">
                     <td th:text="${schedule.date}">20:01:2019</td>
                     <td th:text="${schedule.typRozkladu.dispayValue}">SOBOTA</td>
-                    <td th:text="${schedule.nrSluzbowy}">1111</td>
+                    <td th:text="${schedule.username}">1111</td>
                     <td th:text="${schedule.linia}">111</td>
                     <td th:text="${schedule.poczatekPracy}">12:00</td>
                     <td th:text="${schedule.koniecPracy}">19.59</td>
                     <td th:text="${schedule.miejsceZmiany}">zmiana</td>
 
-                    <td><a href="#" th:href="@{'/schedule/' + ${schedule.id} + '/update'}">Edit</a></td>
-                    <td><a href="#" th:href="@{'/listschedules/' + ${schedule.id} + '/delete'}">Delete</a></td>
+                    <td><a href="#" th:href="@{'/manager/schedule/' + ${schedule.id} + '/update'}">Edit</a></td>
+                    <td><a href="#" th:href="@{'/manager/listschedules/' + ${schedule.id} + '/delete'}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>

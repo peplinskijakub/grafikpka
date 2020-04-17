@@ -13,7 +13,7 @@ public interface ScheduleService {
     @Transactional
     Schedule findById(String id);
 
-    Set<Schedule> findScheduleByNrSluzbowy(String workNb);
+    Set<Schedule> findSchedulesByUsename(String username);
 
     Set<Schedule> findByDate(String date);
 

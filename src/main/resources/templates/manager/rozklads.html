@@ -79,8 +79,8 @@
                     <td th:text="${rodzajRozkladu.miejsceZmiany}">Maciejewicza</td>
                     <td th:text="${rodzajRozkladu.pierwszaLinia}">170/1</td>
 
-                    <td><a href="#" th:href="@{'/schedule/' + ${rodzajRozkladu.id} + '/update'}">Edit</a></td>
-                    <td><a href="#" th:href="@{'/listschedules/' + ${rodzajRozkladu.id} + '/delete'}">Delete</a></td>
+                    <td><a href="#" th:href="@{'/manager/schedule/' + ${rodzajRozkladu.id} + '/update'}">Edit</a></td>
+                    <td><a href="#" th:href="@{'/manager/listschedules/' + ${rodzajRozkladu.id} + '/delete'}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>

@@ -22,10 +22,10 @@
                     <a class="nav-link" href="#" th:href="@{~/}"><i class="fa fa-home"></i></a>
                 </li>
                 <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')"  class="nav-item">
-                    <a class="nav-link" href="#" th:href="@{/listschedules}">Grafik</a>
+                    <a class="nav-link" href="#" th:href="@{/manager/listschedules}">Grafik</a>
                 </li>
                 <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" class="nav-item">
-                    <a class="nav-link" href="#" th:href="@{/rozklads}">Rodzaje Rozkładów</a>
+                    <a class="nav-link" href="#" th:href="@{/manager/rozklads}">Rodzaje Rozkładów</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="nav-link" href="#" th:href="@{/users/index}">Użytkownik</a>

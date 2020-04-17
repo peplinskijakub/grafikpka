@@ -11,5 +11,4 @@ public interface ScheduleRepository extends MongoRepository<Schedule,String> {
 
     Optional<Schedule> findById(String id);
 
-    Schedule findScheduleByNrSluzbowy(String nrSluzbowy);
 }
