@@ -32,11 +32,11 @@ public class User {
     @NonNull
     private boolean isActive;
 
-    private String roles = "";
+    private List<Role> roles;
 
     private String permissions = "";
 
-    public User(@NonNull String username, @NonNull String password,boolean isActive, String roles, String permissions) {
+    public User(@NonNull String username, @NonNull String password,boolean isActive, List<Role> roles, String permissions) {
         this.username = username;
         this.password = password;
         this.isActive=isActive;
@@ -44,12 +44,12 @@ public class User {
         this.permissions = permissions;
     }
 
-    public List<String> getRoleList(){
-        if (this.roles.length()>0){
-            return Arrays.asList(this.roles.split(","));
-        }
-        return new ArrayList<>();
-    }
+//    public List<String> getRoleList(){
+//        if (this.roles.length()>0){
+//            return Arrays.asList(this.roles.split(","));
+//        }
+//        return new ArrayList<>();
+//    }
 
     public List<String> getPermissionList(){
         if (this.permissions.length()>0){

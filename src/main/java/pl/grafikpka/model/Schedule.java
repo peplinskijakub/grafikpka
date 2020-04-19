@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +26,7 @@ public class Schedule {
     @Column(name = "typ_rozkladu")
     private TypRozkladu typRozkladu;
     @Column(name = "username")
+    @Indexed
     private String username;
     @Column(name = "linia")
     private String linia;
