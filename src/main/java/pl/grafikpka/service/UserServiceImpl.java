@@ -44,6 +44,15 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roles);
         userRepository.save(user);
     }
+    public void createModerator(User user) {
+        BCryptPasswordEncoder  encoder = new  BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+        Role userRole = Role.MODERATOR;
+        List<Role> roles = new ArrayList<>();
+        roles.add(userRole);
+        user.setRoles(roles);
+        userRepository.save(user);
+    }
 
     public User findOne(String user) {
         return userRepository.findByUsername(user);

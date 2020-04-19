@@ -27,7 +27,7 @@ public class DbSeeder implements CommandLineRunner {
         this.userRepository.deleteAll();
 
         User user = new User("user",passwordEncoder.encode("user123"),true, Collections.singletonList(Role.USER),"");
-        User admin = new User("admin", passwordEncoder.encode("admin123"),true, Collections.singletonList(Role.valueOf("ADMIN")), "ACCESS_TEST1,ACCESS_TEST2");
+        User admin = new User("admin", passwordEncoder.encode("admin123"),true, Collections.singletonList(Role.ADMIN), "ACCESS_TEST1,ACCESS_TEST2");
         User manager = new User("manager", passwordEncoder.encode("manager123"),true, Collections.singletonList(Role.MANAGER), "ACCESS_TEST1");
 
         List<User> users = Arrays.asList(user, admin, manager);
