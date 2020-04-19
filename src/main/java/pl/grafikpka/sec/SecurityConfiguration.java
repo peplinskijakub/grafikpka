@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll() //do startowej wszyscy
                 .antMatchers("/users/**").authenticated() //dla użytkownika
                 .antMatchers("/api/public/users", "/admin/**").hasRole("ADMIN")
-                .antMatchers("/manager/**", "rodzajRozkladow/**", "schedule/**", "/rozklads").hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/signin")
