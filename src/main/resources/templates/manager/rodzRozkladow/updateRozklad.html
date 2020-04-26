@@ -3,10 +3,9 @@
 <head th:insert="fragments.html :: headerfiles"></head>
 <body>
 <header th:insert="fragments.html :: nav"></header>
-<div class="container-fluid">
+<div class="container">
     <!--/*@thymesVar id="rodzajRozkladu" type="pl.grafikpka.model.RodzajRozkladu"*/-->
-    <form action="#"
-          th:action="@{/update/{id}(id=${rodzajRozkladu.id})}"
+    <form th:action="@{/manager/rodzRozkladu/}"
           th:object="${rodzajRozkladu}"
           method="post">
         <div class="col-md-2">
@@ -24,10 +23,10 @@
         <span th:if="${#fields.hasErrors('brygada')}" th:errors="*{brygada}"></span>
 
         <input type="text" th:field="*{godzina}" id="godzina" placeholder="godzina">
-        <span th:if="${#fields.hasErrors('brygada')}" th:errors="*{brygada}"></span>
+        <span th:if="${#fields.hasErrors('godzina')}" th:errors="*{godzina}"></span>
 
         <input type="text" th:field="*{miejsceZmiany}" id="miejsceZmiany" placeholder="miejsce zmiany">
-        <span th:if="${#fields.hasErrors('miejesceZmiany')}" th:errors="*{miejsceZmiany}"></span>
+        <span th:if="${#fields.hasErrors('miejsceZmiany')}" th:errors="*{miejsceZmiany}"></span>
 
         <input type="text" th:field="*{pierwszaLinia}" id="pierwszaLinia" placeholder="pierwsza linia">
         <span th:if="${#fields.hasErrors('pierwszaLinia')}" th:errors="*{pierwszaLinia}"></span>

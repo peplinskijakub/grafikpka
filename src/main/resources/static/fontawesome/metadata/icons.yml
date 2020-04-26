@@ -676,7 +676,7 @@ archive:
     terms:
       - box
       - package
-      - save
+      - saveRozklad
       - storage
   styles:
     - solid
@@ -2053,7 +2053,7 @@ bookmark:
       - marker
       - read
       - remember
-      - save
+      - saveRozklad
   styles:
     - solid
     - regular
@@ -3077,7 +3077,7 @@ cart-arrow-down:
   search:
     terms:
       - download
-      - save
+      - saveRozklad
       - shopping
   styles:
     - solid
@@ -4024,7 +4024,7 @@ cloud:
       - atmosphere
       - fog
       - overcast
-      - save
+      - saveRozklad
       - upload
       - weather
   styles:
@@ -4040,7 +4040,7 @@ cloud-download-alt:
     terms:
       - download
       - export
-      - save
+      - saveRozklad
   styles:
     - solid
   unicode: f381
@@ -4166,7 +4166,7 @@ cloud-upload-alt:
     terms:
       - cloud-upload
       - import
-      - save
+      - saveRozklad
       - upload
   styles:
     - solid
@@ -5848,7 +5848,7 @@ download:
     terms:
       - export
       - hard drive
-      - save
+      - saveRozklad
       - transfer
   styles:
     - solid
@@ -7070,7 +7070,7 @@ file-download:
     terms:
       - document
       - export
-      - save
+      - saveRozklad
   styles:
     - solid
   unicode: f56d
@@ -7102,7 +7102,7 @@ file-export:
   search:
     terms:
       - download
-      - save
+      - saveRozklad
   styles:
     - solid
   unicode: f56e
@@ -7222,7 +7222,7 @@ file-pdf:
       - acrobat
       - document
       - preview
-      - save
+      - saveRozklad
   styles:
     - solid
     - regular
@@ -7286,7 +7286,7 @@ file-upload:
       - document
       - import
       - page
-      - save
+      - saveRozklad
   styles:
     - solid
   unicode: f574
@@ -9734,7 +9734,7 @@ hdd:
       - hard drive
       - harddrive
       - machine
-      - save
+      - saveRozklad
       - storage
   styles:
     - solid
@@ -11498,7 +11498,7 @@ life-ring:
       - coast guard
       - help
       - overboard
-      - save
+      - saveRozklad
       - support
   styles:
     - solid
@@ -14202,7 +14202,7 @@ piggy-bank:
   search:
     terms:
       - bank
-      - save
+      - saveRozklad
       - savings
   styles:
     - solid
@@ -15882,7 +15882,7 @@ sd-card:
       - image
       - memory
       - photo
-      - save
+      - saveRozklad
   styles:
     - solid
   unicode: f7c2
@@ -16067,7 +16067,7 @@ share:
   search:
     terms:
       - forward
-      - save
+      - saveRozklad
       - send
       - social
   styles:
@@ -16082,7 +16082,7 @@ share-alt:
   search:
     terms:
       - forward
-      - save
+      - saveRozklad
       - send
       - social
   styles:
@@ -16097,7 +16097,7 @@ share-alt-square:
   search:
     terms:
       - forward
-      - save
+      - saveRozklad
       - send
       - social
   styles:
@@ -16112,7 +16112,7 @@ share-square:
   search:
     terms:
       - forward
-      - save
+      - saveRozklad
       - send
       - social
   styles:

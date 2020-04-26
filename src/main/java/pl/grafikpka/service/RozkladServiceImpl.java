@@ -1,5 +1,6 @@
 package pl.grafikpka.service;
 
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.stereotype.Service;
 import pl.grafikpka.model.RodzajRozkladu;
 import pl.grafikpka.model.TypRozkladu;
@@ -7,6 +8,7 @@ import pl.grafikpka.repository.RozkladRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RozkladServiceImpl implements RozkladService {
@@ -27,8 +29,9 @@ public class RozkladServiceImpl implements RozkladService {
 
     }
 
-   public boolean saveRozklad(TypRozkladu typRozkladu, String linia, String brygada, String godzina,
-                        String miejsceZmiany, String pierwszaLinia) {
+    @Override
+    public boolean saveRozklad(TypRozkladu typRozkladu, String linia, String brygada, String godzina,
+                               String miejsceZmiany, String pierwszaLinia) {
         try {
             RodzajRozkladu rozklad = new RodzajRozkladu();
             rozklad.setTypRozkladu(typRozkladu);
@@ -41,7 +44,31 @@ public class RozkladServiceImpl implements RozkladService {
             return true;
         } catch (Exception e) {
             return false;
+        }
     }
+
+    @Override
+    public RodzajRozkladu findById(String id) {
+        Optional<RodzajRozkladu> rozkladOptional = rozkladRepository.findById(id);
+        if (!rozkladOptional.isPresent()) {
+            try {
+                throw new NotFound();
+            } catch (NotFound notFound) {
+                notFound.printStackTrace();
+            }
+        }
+        return rozkladOptional.get();
+
+    }
+
+    @Override
+    public void deleteById(String id) {
+        rozkladRepository.deleteById(id);
+    }
+
+    @Override
+    public void save(RodzajRozkladu rodzajRozkladu) {
+        rozkladRepository.save(rodzajRozkladu);
     }
 
     @Override
@@ -49,8 +76,4 @@ public class RozkladServiceImpl implements RozkladService {
         return rozkladRepository.findAll();
     }
 
-    @Override
-    public RodzajRozkladu save(RodzajRozkladu rodzajRozkladu) {
-        return rozkladRepository.save(rodzajRozkladu);
-    }
 }

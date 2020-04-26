@@ -119,7 +119,7 @@ files-o:
   name: copy
   prefix: far
 floppy-o:
-  name: save
+  name: saveRozklad
   prefix: far
 gbp:
   name: pound-sign

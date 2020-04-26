@@ -356,7 +356,7 @@ business:
     - print
     - project-diagram
     - registered
-    - save
+    - saveRozklad
     - sitemap
     - socks
     - sticky-note
@@ -568,7 +568,7 @@ computers:
     - print
     - satellite
     - satellite-dish
-    - save
+    - saveRozklad
     - sd-card
     - server
     - sim-card
@@ -680,7 +680,7 @@ design:
     - ruler-combined
     - ruler-horizontal
     - ruler-vertical
-    - save
+    - saveRozklad
     - splotch
     - spray-can
     - stamp
@@ -875,7 +875,7 @@ files:
     - folder-open
     - paste
     - photo-video
-    - save
+    - saveRozklad
     - sticky-note
   label: Files
 finance:
@@ -1298,7 +1298,7 @@ interfaces:
     - reply-all
     - rss
     - rss-square
-    - save
+    - saveRozklad
     - screwdriver
     - search
     - search-minus
@@ -1835,7 +1835,7 @@ objects:
     - ruler-vertical
     - satellite
     - satellite-dish
-    - save
+    - saveRozklad
     - school
     - screwdriver
     - scroll

@@ -9,7 +9,8 @@ public enum  TypRozkladu {
     NIEDZIELA("Niedziela"),
     POWSZEDNI_FERIE("Powszedni ferie"),
     POWSZDNI_WAKACJE("Powszedni wakacje"),
-    SPECJALNY("Specjalny");
+    SPECJALNY("Specjalny"),
+    COVID19("Covid-19");
 
     private String dispayValue;
 

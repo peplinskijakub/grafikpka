@@ -41,13 +41,13 @@ public class ScheduleController {
         boolean isFlag = scheduleService.saveDataFromCsv(schedule.getFile(), schedule.getDate(), schedule.getTypRozkladu());
         log.info("Wczytanie danych" + schedule.getDate());
         if (isFlag) {
-           // redirectAttributes.addAttribute("date", schedule.getDate());
             redirectAttributes.addFlashAttribute("succesmessage", "File Upload Successfully");
         } else {
             redirectAttributes.addFlashAttribute("errormessage", "File Upload not done, Please try again");
         }
         return "redirect:/manager/listschedules";
     }
+
     @GetMapping("listschedules/{id}/delete")
     public String deleteById(@PathVariable String id){
 

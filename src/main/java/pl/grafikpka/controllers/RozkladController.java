@@ -1,21 +1,24 @@
 package pl.grafikpka.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.grafikpka.model.RodzajRozkladu;
 import pl.grafikpka.service.RozkladService;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping(value = "manager")
 public class RozkladController {
+
+    private static final String ROZKLAD_UPDATE_FORM_URL = "manager/rodzRozkladow/updateRozklad";
+
     private RozkladService rozkladService;
 
     public RozkladController(RozkladService rozkladService) {
@@ -23,7 +26,7 @@ public class RozkladController {
     }
 
     @GetMapping(value = "/rozklads")
-    public String getrozklads(Model model) {
+    public String getRozklads(Model model) {
         model.addAttribute("rozklad", new RodzajRozkladu());
         List<RodzajRozkladu> rozklady = rozkladService.findAll();
         model.addAttribute("rozklady", rozklady);
@@ -31,16 +34,54 @@ public class RozkladController {
         return "manager/rozklads";
     }
 
-    @PostMapping(value = "/manager/addrozklad")
-    public String addRozklad(@ModelAttribute RodzajRozkladu rodzajRozkladu, BindingResult result, RedirectAttributes redirectAttributes) {
-        RodzajRozkladu isFlag = rozkladService.save(rodzajRozkladu);
-        redirectAttributes.addFlashAttribute("message", "Failed");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
-        if (result.hasErrors()) {
-            return "redirect:/manager/rozklads";
+    @PostMapping(value = "/addRozklad")
+    public String addRozklad(@ModelAttribute RodzajRozkladu rodzajRozkladu, RedirectAttributes redirectAttributes) {
+        boolean isFlag = rozkladService.saveRozklad(
+                rodzajRozkladu.getTypRozkladu()
+                , rodzajRozkladu.getLinia()
+                , rodzajRozkladu.getBrygada()
+                , rodzajRozkladu.getGodzina()
+                , rodzajRozkladu.getMiejsceZmiany()
+                , rodzajRozkladu.getPierwszaLinia());
+        if (isFlag) {
+            redirectAttributes.addFlashAttribute("succesmessage", "File Upload Successfully");
+        } else {
+            redirectAttributes.addFlashAttribute("errormessage", "File Upload not done, Please try again");
         }
-        redirectAttributes.addFlashAttribute("message", "Success");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+        return "redirect:/manager/rozklads";
+    }
+
+    @GetMapping("rozklads/{id}/delete")
+    public String deleteById(@PathVariable String id) {
+
+        log.debug("Deleting id: " + id);
+
+        rozkladService.deleteById(id);
+        return "redirect:/manager/rozklads";
+    }
+
+    @GetMapping("/rodzRozkladow/{id}/update")
+    public String update(@PathVariable String id, Model model) {
+        model.addAttribute("rodzajRozkladu", rozkladService.findById(id));
+        log.info("Id to Update: " + id);
+        return ROZKLAD_UPDATE_FORM_URL;
+    }
+
+    @PostMapping("/rodzRozkladu")
+    public String updateRozklad(@Valid RodzajRozkladu rodzajRozkladu, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            rodzajRozkladu.setId(rodzajRozkladu.getId());
+            rodzajRozkladu.setTypRozkladu(rodzajRozkladu.getTypRozkladu());
+            rodzajRozkladu.setLinia(rodzajRozkladu.getLinia());
+            rodzajRozkladu.setBrygada(rodzajRozkladu.getBrygada());
+            rodzajRozkladu.setGodzina(rodzajRozkladu.getGodzina());
+            rodzajRozkladu.setMiejsceZmiany(rodzajRozkladu.getMiejsceZmiany());
+            rodzajRozkladu.setPierwszaLinia(rodzajRozkladu.getPierwszaLinia());
+            return ROZKLAD_UPDATE_FORM_URL;
+        }
+        rozkladService.save(rodzajRozkladu);
+        model.addAttribute("rozklad", rozkladService.findAll());
+        log.info("Updated id: " + rodzajRozkladu.getId());
         return "redirect:/manager/rozklads";
     }
 }
