@@ -1,6 +1,5 @@
 package pl.grafikpka.service;
 
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.stereotype.Service;
 import pl.grafikpka.model.RodzajRozkladu;
 import pl.grafikpka.model.TypRozkladu;
@@ -8,7 +7,6 @@ import pl.grafikpka.repository.RozkladRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RozkladServiceImpl implements RozkladService {
@@ -48,17 +46,8 @@ public class RozkladServiceImpl implements RozkladService {
     }
 
     @Override
-    public RodzajRozkladu findById(String id) {
-        Optional<RodzajRozkladu> rozkladOptional = rozkladRepository.findById(id);
-        if (!rozkladOptional.isPresent()) {
-            try {
-                throw new NotFound();
-            } catch (NotFound notFound) {
-                notFound.printStackTrace();
-            }
-        }
-        return rozkladOptional.get();
-
+    public RodzajRozkladu getById(String id) {
+        return rozkladRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -67,8 +56,9 @@ public class RozkladServiceImpl implements RozkladService {
     }
 
     @Override
-    public void save(RodzajRozkladu rodzajRozkladu) {
+    public RodzajRozkladu save(RodzajRozkladu rodzajRozkladu) {
         rozkladRepository.save(rodzajRozkladu);
+        return rodzajRozkladu;
     }
 
     @Override

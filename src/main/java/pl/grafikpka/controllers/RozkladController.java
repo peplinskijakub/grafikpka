@@ -3,13 +3,12 @@ package pl.grafikpka.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.grafikpka.model.RodzajRozkladu;
+import pl.grafikpka.model.TypRozkladu;
 import pl.grafikpka.service.RozkladService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -62,26 +61,39 @@ public class RozkladController {
 
     @GetMapping("/rodzRozkladow/{id}/update")
     public String update(@PathVariable String id, Model model) {
-        model.addAttribute("rodzajRozkladu", rozkladService.findById(id));
+        model.addAttribute("rodzajRozkladu", rozkladService.getById(id));
         log.info("Id to Update: " + id);
         return ROZKLAD_UPDATE_FORM_URL;
     }
+//    @RequestMapping("/product/show/{id}")
+//    public String getProduct(@PathVariable String id, Model model){
+//        model.addAttribute("product", productService.getById(id));
+//        return "product/show";
+//    }
+//
+//    @RequestMapping("product/edit/{id}")
+//    public String edit(@PathVariable String id, Model model){
+//        Product product = productService.getById(id);
+//        ProductForm productForm = productToProductForm.convert(product);
+//
+//        model.addAttribute("productForm", productForm);
+//        return "product/productform";
+//    }
 
     @PostMapping("/rodzRozkladu")
-    public String updateRozklad(@Valid RodzajRozkladu rodzajRozkladu, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            rodzajRozkladu.setId(rodzajRozkladu.getId());
-            rodzajRozkladu.setTypRozkladu(rodzajRozkladu.getTypRozkladu());
-            rodzajRozkladu.setLinia(rodzajRozkladu.getLinia());
-            rodzajRozkladu.setBrygada(rodzajRozkladu.getBrygada());
-            rodzajRozkladu.setGodzina(rodzajRozkladu.getGodzina());
-            rodzajRozkladu.setMiejsceZmiany(rodzajRozkladu.getMiejsceZmiany());
-            rodzajRozkladu.setPierwszaLinia(rodzajRozkladu.getPierwszaLinia());
-            return ROZKLAD_UPDATE_FORM_URL;
-        }
-        rozkladService.save(rodzajRozkladu);
-        model.addAttribute("rozklad", rozkladService.findAll());
+    public String updateRozklad(String id, TypRozkladu typRozkladu,String linia,String brygada,String godzina,
+          String miejsceZmiany,String pierwszaLinia  , Model model) {
+        RodzajRozkladu rodzajRozkladu = rozkladService.getById(id);
+        model.addAttribute("rodzajRozkladu",rodzajRozkladu);
+        rodzajRozkladu.setId(id);
+        rodzajRozkladu.setTypRozkladu(typRozkladu);
+        rodzajRozkladu.setLinia(linia);
+        rodzajRozkladu.setBrygada(brygada);
+        rodzajRozkladu.setGodzina(godzina);
+        rodzajRozkladu.setMiejsceZmiany(miejsceZmiany);
+        rodzajRozkladu.setPierwszaLinia(pierwszaLinia);
         log.info("Updated id: " + rodzajRozkladu.getId());
+        rozkladService.save(rodzajRozkladu);
         return "redirect:/manager/rozklads";
     }
 }

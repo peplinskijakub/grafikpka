@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org" >
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments.html :: headerfiles"></head>
 <body>
 <header th:insert="fragments.html :: nav"></header>
 <div class="container">
     <!--/*@thymesVar id="rodzajRozkladu" type="pl.grafikpka.model.RodzajRozkladu"*/-->
-    <form th:action="@{/manager/rodzRozkladu/}"
+    <form th:action="@{/manager/rodzRozkladu}"
           th:object="${rodzajRozkladu}"
           method="post">
         <div class="col-md-2">
@@ -15,7 +15,7 @@
                         th:value="${typOpt}" th:text="${typOpt.getDispayValue()}"></option>
             </select>
         </div>
-
+        <input type="hidden" th:field="*{id}"/>
         <input type="text" th:field="*{linia}" id="linia" placeholder="linia">
         <span th:if="${#fields.hasErrors('linia')}" th:errors="*{linia}"></span>
 

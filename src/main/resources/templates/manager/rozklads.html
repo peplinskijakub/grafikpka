@@ -20,7 +20,7 @@
             <strong th:text="${errormessage}"></strong>
         </div>
 
-        <form th:action="@{'/manager/addRozklad'}" th:object="${rozklad}" method="post">
+        <form th:action="@{'/manager/addRozklad/id'}" th:object="${rozklad}" method="post">
             <div class="col-md-2">
                 <label for="typRozkladu">Typ Rozkladu</label>
                 <select class="form-control" id="typRozkladu" name="typRozkladu" th:field="*{typRozkladu}">

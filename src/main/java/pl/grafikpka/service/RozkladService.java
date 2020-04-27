@@ -13,9 +13,9 @@ public interface RozkladService{
                         String miejsceZmiany, String pierwszaLinia);
 
     @Transactional
-    RodzajRozkladu findById(String id);
+    RodzajRozkladu getById(String id);
 
     void deleteById(String id);
 
-    void save(RodzajRozkladu rodzajRozkladu);
+    RodzajRozkladu save(RodzajRozkladu rodzajRozkladu);
 }
