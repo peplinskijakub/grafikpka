@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +14,10 @@ import pl.grafikpka.repository.RozkladRepository;
 import pl.grafikpka.repository.ScheduleRepository;
 
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -60,16 +62,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     @Transactional
-    public Schedule findById(String id) {
-        Optional<Schedule> scheduleOptional = scheduleRepository.findById(id);
-        if (!scheduleOptional.isPresent()) {
-            try {
-                throw new NotFound();
-            } catch (NotFound notFound) {
-                notFound.printStackTrace();
-            }
-        }
-        return scheduleOptional.get();
+    public Schedule getById(String id) {
+        return scheduleRepository.findById(id).orElse(null);
+
     }
 
     @Override

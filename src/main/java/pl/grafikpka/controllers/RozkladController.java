@@ -65,20 +65,6 @@ public class RozkladController {
         log.info("Id to Update: " + id);
         return ROZKLAD_UPDATE_FORM_URL;
     }
-//    @RequestMapping("/product/show/{id}")
-//    public String getProduct(@PathVariable String id, Model model){
-//        model.addAttribute("product", productService.getById(id));
-//        return "product/show";
-//    }
-//
-//    @RequestMapping("product/edit/{id}")
-//    public String edit(@PathVariable String id, Model model){
-//        Product product = productService.getById(id);
-//        ProductForm productForm = productToProductForm.convert(product);
-//
-//        model.addAttribute("productForm", productForm);
-//        return "product/productform";
-//    }
 
     @PostMapping("/rodzRozkladu")
     public String updateRozklad(String id, TypRozkladu typRozkladu,String linia,String brygada,String godzina,

@@ -11,7 +11,7 @@ import java.util.Set;
 public interface ScheduleService {
 
     @Transactional
-    Schedule findById(String id);
+    Schedule getById(String id);
 
     Set<Schedule> findSchedulesByUsename(String username);
 

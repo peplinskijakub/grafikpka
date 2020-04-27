@@ -58,7 +58,7 @@ public class ScheduleController {
     }
     @GetMapping("/schedule/{id}/update")
     public String update(@PathVariable String id, Model model){
-        model.addAttribute("schedule", scheduleService.findById(id));
+        model.addAttribute("schedule", scheduleService.getById(id));
         log.info("Id to Update: " + id);
         return SCHEDULE_SCHEDULEFORM_URL;
     }
