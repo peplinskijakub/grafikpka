@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.grafikpka.model.Schedule;
 import pl.grafikpka.model.TypRozkladu;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public interface ScheduleService {
     Set<Schedule> findByDate(String date);
 
 
-    boolean saveDataFromCsv(MultipartFile file, String date, TypRozkladu typRozkladu);
+    boolean saveDataFromCsv(MultipartFile file, LocalDate date, TypRozkladu typRozkladu);
 
     void deleteById(String id);
 

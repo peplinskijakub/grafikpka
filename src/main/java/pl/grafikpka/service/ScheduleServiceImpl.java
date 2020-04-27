@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,7 @@ import pl.grafikpka.repository.RozkladRepository;
 import pl.grafikpka.repository.ScheduleRepository;
 
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -31,7 +33,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         this.rozkladRepository = rozkladRepository;
     }
 
-    public boolean saveDataFromCsv(MultipartFile file, String date, TypRozkladu typRozkladu) {
+
+    public boolean saveDataFromCsv(MultipartFile file,@DateTimeFormat(pattern = "DateTimeFormat.ISO") LocalDate date, TypRozkladu typRozkladu) {
+
         List<Schedule> scheduleList = new ArrayList<>();
         try {
             InputStreamReader reader = new InputStreamReader(file.getInputStream());
