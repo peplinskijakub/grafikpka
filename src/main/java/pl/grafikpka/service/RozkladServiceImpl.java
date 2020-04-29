@@ -16,7 +16,7 @@ public class RozkladServiceImpl implements RozkladService {
         this.rozkladRepository = rozkladRepository;
     }
 
-    String findAllByTypRozkladu(String typRozkladu, String startLine, String godz) {
+    String findAllByTypRozkladu(TypRozkladu typRozkladu, String startLine, String godz) {
         List<RodzajRozkladu> rozkladList = new ArrayList<>();
         rozkladRepository.findAll().forEach(rozkladList::add);
         return rozkladList.stream()
@@ -36,7 +36,7 @@ public class RozkladServiceImpl implements RozkladService {
             rozklad.setLinia(linia);
             rozklad.setBrygada(brygada);
             rozklad.setGodzina(godzina);
-            rozklad.setMiejsceZmiany(miejsceZmiany);
+            rozklad.setMiejsceZmiany(findAllByTypRozkladu(typRozkladu,linia,godzina));
             rozklad.setPierwszaLinia(pierwszaLinia);
             this.rozkladRepository.save(rozklad);
             return true;
