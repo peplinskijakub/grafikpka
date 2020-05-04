@@ -36,7 +36,7 @@ public class RozkladServiceImpl implements RozkladService {
             rozklad.setLinia(linia);
             rozklad.setBrygada(brygada);
             rozklad.setGodzina(godzina);
-            rozklad.setMiejsceZmiany(findAllByTypRozkladu(typRozkladu,linia,godzina));
+            rozklad.setMiejsceZmiany(miejsceZmiany);
             rozklad.setPierwszaLinia(pierwszaLinia);
             this.rozkladRepository.save(rozklad);
             return true;

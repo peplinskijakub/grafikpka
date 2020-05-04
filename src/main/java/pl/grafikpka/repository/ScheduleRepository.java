@@ -16,4 +16,6 @@ public interface ScheduleRepository extends MongoRepository<Schedule,String> {
     @Query("{'date : ?0'}")
     List<Schedule>findByDate(String date);
 
+    List<Schedule>findScheduleByUsername(String username);
+
 }

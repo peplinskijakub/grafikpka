@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
@@ -26,6 +27,7 @@ public class RodzajRozkladu {
     @Column(name = "brygada")
     private String brygada;
     @Column(name = "godzina")
+    @DateTimeFormat(pattern = "gg:mm")
     private String godzina;
     @Column(name = "miejsce_zmiany")
     private String miejsceZmiany;
