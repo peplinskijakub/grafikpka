@@ -14,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Document
 @Data
@@ -39,6 +40,8 @@ public class Schedule {
     private String koniecPracy;
     @Column(name = "miejsce_zmiany")
     private String miejsceZmiany;
+    @Column(name = "rodzaj_rozkladu")
+    private Set<RodzajRozkladu>rodzajRozkladu;
 
     @Transient
     private MultipartFile file;

@@ -50,7 +50,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 schedule.setLinia(record.get(1).trim());
                 schedule.setPoczatekPracy(record.get(2).trim());
                 schedule.setKoniecPracy(record.get(3).trim());
-                schedule.setMiejsceZmiany(findAllByTypRozkladu(rozkladList,typRozkladu.name(), schedule.getLinia(), schedule.getPoczatekPracy()));
+                schedule.setMiejsceZmiany(findAllByTypRozkladu(rozkladList,typRozkladu.name(), record.get(1), record.get(2)));
                 if (record.get(0).isEmpty())
                     continue;
                 scheduleList.add(schedule);
@@ -84,7 +84,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .filter(r -> r.getTypRozkladu().equals(typRozkladu) &&
                         r.getLinia().equals(startLine)
                         && r.getGodzina().equals(godz))
-                .map(RodzajRozkladu::getMiejsceZmiany).findAny().orElse(null);
+                .map(RodzajRozkladu::getMiejsceZmiany).findAny().orElse("");
     }
 
     @Override
