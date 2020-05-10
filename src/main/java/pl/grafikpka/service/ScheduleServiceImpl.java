@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,7 +33,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
 
-    public boolean saveDataFromCsv(MultipartFile file,@DateTimeFormat(pattern = "DateTimeFormat.ISO") LocalDate date, TypRozkladu typRozkladu) {
+    public boolean saveDataFromCsv(MultipartFile file,LocalDate date, TypRozkladu typRozkladu) {
 
         List<Schedule> scheduleList = new ArrayList<>();
         try {
@@ -50,7 +49,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 schedule.setLinia(record.get(1).trim());
                 schedule.setPoczatekPracy(record.get(2).trim());
                 schedule.setKoniecPracy(record.get(3).trim());
-                schedule.setMiejsceZmiany(findAllByTypRozkladu(rozkladList,typRozkladu.name(), record.get(1), record.get(2)));
+                schedule.setMiejsceZmiany(findAllByTypRozkladu(rozkladList,schedule.getTypRozkladu(),
+                        schedule.getLinia(), schedule.getPoczatekPracy()));
                 if (record.get(0).isEmpty())
                     continue;
                 scheduleList.add(schedule);
@@ -79,7 +79,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
 
-    public String findAllByTypRozkladu(List<RodzajRozkladu>rozkladList, String typRozkladu, String startLine, String godz) {
+    public String findAllByTypRozkladu(List<RodzajRozkladu>rozkladList, TypRozkladu typRozkladu, String startLine, String godz) {
        return rozkladList.stream()
                 .filter(r -> r.getTypRozkladu().equals(typRozkladu) &&
                         r.getLinia().equals(startLine)
