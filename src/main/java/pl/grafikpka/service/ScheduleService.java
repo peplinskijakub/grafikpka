@@ -1,5 +1,6 @@
 package pl.grafikpka.service;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import pl.grafikpka.model.Schedule;
@@ -8,7 +9,7 @@ import pl.grafikpka.model.TypRozkladu;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-
+@Profile("web")
 public interface ScheduleService {
 
     @Transactional
