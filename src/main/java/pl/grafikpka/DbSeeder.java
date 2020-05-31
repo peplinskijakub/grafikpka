@@ -10,7 +10,6 @@ import pl.grafikpka.repository.UserRepository;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 @Service
 public class DbSeeder implements CommandLineRunner {
     private UserRepository userRepository;
