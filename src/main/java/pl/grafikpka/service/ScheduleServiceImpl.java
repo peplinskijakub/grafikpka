@@ -33,7 +33,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
 
-    public boolean saveDataFromCsv(MultipartFile file,LocalDate date, TypRozkladu typRozkladu) {
+    public boolean saveDataFromCsv(MultipartFile file, LocalDate date, TypRozkladu typRozkladu) {
 
         List<Schedule> scheduleList = new ArrayList<>();
         try {

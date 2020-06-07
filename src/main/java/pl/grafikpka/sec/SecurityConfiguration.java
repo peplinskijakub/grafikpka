@@ -32,7 +32,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/index.html")
+                .antMatchers("/index.html"
+                        ,"/js/**",
+                        "/css/**",
+                        "/img/**",
+                        "/favicon.ico",
+                        "/webjars/**")
                 .permitAll() //do startowej wszyscy
                 .antMatchers("/users/**").authenticated() //dla użytkownika
                 .antMatchers("/api/public/users", "/admin/**").hasRole("ADMIN")

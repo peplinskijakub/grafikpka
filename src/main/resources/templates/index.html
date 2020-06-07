@@ -1,21 +1,76 @@
 <!doctype html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments.html :: headerfiles"></head>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grafik Kierowców</title>
+    <link th:href="@{/images/favicon.jpg}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link th:href="@{../static/fontawesome/css/all.css}" rel="stylesheet">
+    <link th:href="@{../static/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{../static/bootstrap/css/bootstrap.min.js}" rel="stylesheet">
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet"/>
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
+</head>
 <body>
-<header th:insert="fragments.html :: nav"></header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{~/}">Strona Główna </i></a>
+                </li>
+                <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/manager/listschedules}">Dodaj Grafik</a>
+                </li>
+                <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/manager/rozklads}">Rodzaje Rozkładów</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/users/index}">Użytkownik</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/admin/index}">Admin</a>
+                </li>
+            </ul>
+            <form class=" form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">
+                <button sec:authorize="isAuthenticated()" class=" btn btn-outline-danger my-2 my-sm-0 btn-sm"
+                        type="submit">Logout
+                </button>
+                <a sec:authorize="isAnonymous()" th:href="@{~/login}" class=" btn btn-outline-info my-2 my-sm-0 btn-sm"
+                   type="submit">Login</a>
+            </form>
+        </div>
+    </nav>
 <!-- Page content goes here -->
-<div class="jumbotron">
-        <header>
-            <h1>
-                Strona startowa
-            </h1>
-            <div class="col-md-12">
-                <!--<img class="img-responsive" src="../static/resources/images/header_pka.jpg" th:src="@{/resources/images/header_pka.jpg}"/>-->
-            </div><img src="" alt="">
-        </header>
 
-
+<div class="container">
+    <header></header>
+    <img  src="../static/resources/images/header_foto.jpg" th:src="@{/images/header_foto.jpg}" class="img-fluid"/>
+    </header>
 </div>
-<div th:insert="fragments.html :: footer"></div>
+
+
+<!--<div class="jumbotron">-->
+        <!--<header>-->
+            <!--<h1>Grafik Kierowców PKA</h1>-->
+                <!--<img  src="../static/resources/images/header_foto.jpg" th:src="@{/images/header_foto.jpg}"/>-->
+
+        <!--</header>-->
+<!--</div>-->
+<footer th:fragment="footer" class="footer" style="padding-top: 60px; text-align: center;">
+    <div class="container">
+        <span class="text-muted">&copy; 2020 K.Pepliński</span>
+    </div>
+</footer>
 </body>
 </html>
