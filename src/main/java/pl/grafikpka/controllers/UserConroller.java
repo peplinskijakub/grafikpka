@@ -13,8 +13,8 @@ public class UserConroller {
 
     private final UserService userService;
 
-    @GetMapping("/usersOptions")
+    @GetMapping("/index")
     public String getUsers() {
-        return "users/usersOptions";
+        return "users/index";
     }
 }

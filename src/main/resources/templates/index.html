@@ -38,7 +38,7 @@
                     <a class="nav-link" href="#" th:href="@{/manager/rozklads}">Rodzaje Rozkładów</a>
                 </li>
                 <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" class="nav-item">
-                    <a class="nav-link" href="#" th:href="@{/manager/users/register}">Zarządzanie użytkownikami</a>
+                    <a class="nav-link" href="#" th:href="@{/manager/users/register}">Kierowcy</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="nav-link" href="#" th:href="@{/users/index}">Użytkownik</a>
