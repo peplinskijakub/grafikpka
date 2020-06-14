@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,12 +21,12 @@ public class User {
     @Id
     private String id;
 
-    @Column(nullable = false)
     @NonNull
+    @Size(min = 3, max = 30)
     private String username;
 
-    @Column(nullable = false)
     @NonNull
+@Size(min = 6)
     private String password;
 
     @NonNull
