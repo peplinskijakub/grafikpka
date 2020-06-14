@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         return  userRepository.findByUsernameLike("%"+name+"%");
     }
 
-    public void createUser(User user) {
+    public boolean createUser(User user) {
         BCryptPasswordEncoder encoder = new  BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         Role userRole = Role.USER;
@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
         roles.add(userRole);
         user.setRoles(roles);
         userRepository.save(user);
+        return false;
     }
 
     public void createAdmin(User user) {
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
         List<Role> roles = new ArrayList<>();
         roles.add(userRole);
         user.setRoles(roles);
+        user.setActive(true);
         userRepository.save(user);
     }
     public void createModerator(User user) {

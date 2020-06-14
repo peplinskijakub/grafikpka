@@ -10,5 +10,5 @@ public interface UserService {
 
     boolean isUserPresent(String username);
 
-    void createUser(User user);
+    boolean createUser(User user);
 }

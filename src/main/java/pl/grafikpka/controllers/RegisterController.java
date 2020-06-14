@@ -1,5 +1,6 @@
 package pl.grafikpka.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,9 +14,10 @@ import javax.validation.Valid;
 
 
 @Controller
-@RequestMapping("/users")
-public class UserController {
-    private UserService userService;
+@RequiredArgsConstructor
+@RequestMapping("manager/users")
+public class RegisterController {
+     private final UserService userService;
 
     @GetMapping("/index")
     public String index() {
@@ -23,23 +25,21 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String registerForm(Model model){
-        model.addAttribute("user",new User());
-        return "manager/registerForm";
+    public String registerForm(Model model) {
+        model.addAttribute("user", new User());
+        return "manager/users/registerForm";
     }
+
     @PostMapping("/register")
     public String registerUser(@Valid User user, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()) {
-            return "manager/registerForm";
+        if (bindingResult.hasErrors()) {
+            return "manager/users/registerForm";
         }
-        if(userService.isUserPresent(user.getUsername())) {
-            model.addAttribute("exist",true);
-
-            return "manager/registerForm";
-
+        if (userService.isUserPresent(user.getUsername())) {
+            model.addAttribute("exist", true);
+            return "manager/users/registerForm";
         }
         userService.createUser(user);
-
         return "/success";
 
     }
