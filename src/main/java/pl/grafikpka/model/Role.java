@@ -1,7 +1,7 @@
 package pl.grafikpka.model;
 
-public enum  Role {
-USER("USER"),
+public enum Role {
+    USER("USER"),
     MODERATOR("MODERATOR"),
     MANAGER("MANAGER"),
     ADMIN("ADMIN");

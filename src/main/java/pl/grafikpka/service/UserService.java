@@ -11,4 +11,6 @@ public interface UserService {
     boolean isUserPresent(String username);
 
     boolean createUser(User user);
+
+    List<User> findAll();
 }

@@ -26,7 +26,7 @@ public class User {
     private String username;
 
     @NonNull
-@Size(min = 6)
+    @Size(min = 6)
     private String password;
 
     @NonNull
@@ -36,10 +36,10 @@ public class User {
 
     private String permissions = "";
 
-    public User(@NonNull String username, @NonNull String password,boolean isActive, List<Role> roles, String permissions) {
+    public User(@NonNull String username, @NonNull String password, boolean isActive, List<Role> roles, String permissions) {
         this.username = username;
         this.password = password;
-        this.isActive=isActive;
+        this.isActive = isActive;
         this.roles = roles;
         this.permissions = permissions;
     }
@@ -51,8 +51,8 @@ public class User {
 //        return new ArrayList<>();
 //    }
 
-    public List<String> getPermissionList(){
-        if (this.permissions.length()>0){
+    public List<String> getPermissionList() {
+        if (this.permissions.length() > 0) {
             return Arrays.asList(this.permissions.split(","));
         }
         return new ArrayList<>();
