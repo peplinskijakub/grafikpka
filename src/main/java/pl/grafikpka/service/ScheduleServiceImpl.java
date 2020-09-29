@@ -16,7 +16,6 @@ import pl.grafikpka.repository.ScheduleRepository;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -72,7 +71,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Set<Schedule> findSchedulesByUsename(String username) {
+    public Set<Schedule> findSchedulesByUsername(String username) {
         return scheduleRepository.findAll().stream()
                 .filter(schedule -> schedule.getUsername()
                         .equals(username)).collect(Collectors.toSet());
@@ -88,12 +87,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Set<Schedule> findByDate(String date) {
-        Set<Schedule> scheduleSet = new HashSet<>();
-        scheduleRepository.findAll().stream()
-                .map(schedule -> schedule.getDate().equals(date))
-                .collect(Collectors.toSet());
-        return scheduleSet;
+    public Set<Schedule> findSchedulesByDate(String username) {
+        return scheduleRepository.findAll().stream()
+                .filter(schedule -> schedule.getUsername()
+                        .equals(username)).collect(Collectors.toSet());
     }
 
     @Override

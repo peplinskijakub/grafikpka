@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.grafikpka.model.Schedule;
 import pl.grafikpka.service.ScheduleService;
+import pl.grafikpka.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @Controller
@@ -21,6 +21,7 @@ public class ScheduleController {
 
     private static final   String SCHEDULE_SCHEDULEFORM_URL = "manager/schedule/scheduleform";
     private ScheduleService scheduleService;
+    private UserService userService;
 
 
     public ScheduleController(ScheduleService scheduleService) {
@@ -82,15 +83,6 @@ public class ScheduleController {
         model.addAttribute("schedule", scheduleService.findAll());
         log.info("Updated id: " + schedule.getId());
         return "redirect:/manager/listschedules";
-    }
-
-    @GetMapping("/schedule/busDriver/{username}")
-    public String schowDriverWork(@PathVariable("username") String username, Model model){
-        model.addAttribute("schedule", new Schedule());
-       Set<Schedule> schedules = scheduleService.findSchedulesByUsename(username);
-        model.addAttribute("schedules", schedules);
-
-        return "manager/schedule/workDay";
     }
 }
 

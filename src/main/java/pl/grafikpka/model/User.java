@@ -36,6 +36,8 @@ public class User {
 
     private String permissions = "";
 
+    private List<Schedule> schedules;
+
     public User(@NonNull String username, @NonNull String password, boolean isActive, List<Role> roles, String permissions) {
         this.username = username;
         this.password = password;

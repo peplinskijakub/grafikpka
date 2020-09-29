@@ -9,16 +9,16 @@ import pl.grafikpka.model.TypRozkladu;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+
 @Profile("web")
 public interface ScheduleService {
+
+    Schedule save(Schedule schedule);
 
     @Transactional
     Schedule getById(String id);
 
-    Set<Schedule> findSchedulesByUsename(String username);
-
-    Set<Schedule> findByDate(String date);
-
+    Set<Schedule> findSchedulesByUsername(String username);
 
     boolean saveDataFromCsv(MultipartFile file, LocalDate date, TypRozkladu typRozkladu);
 
@@ -26,5 +26,5 @@ public interface ScheduleService {
 
     List<Schedule> findAll();
 
-    Schedule save(Schedule schedule);
+    Set<Schedule> findSchedulesByDate(String username);
 }
