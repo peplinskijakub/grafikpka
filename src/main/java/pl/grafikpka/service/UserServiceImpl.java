@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     public boolean createUser(User user) {
         BCryptPasswordEncoder encoder = new  BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setActive(true);
         Role userRole = Role.USER;
         List<Role> roles = new ArrayList<>();
         roles.add(userRole);
