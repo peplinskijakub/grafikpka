@@ -1,0 +1,8 @@
+{"_id":{"$oid":"5ea5a39c58894a691c4e7dde"},
+  "typRozkladu":"COVID19",
+  "linia":"K",
+  "brygada":"12",
+  "godzina":"13:58",
+  "miejsceZmiany":"Kacze Buki",
+  "pierwszaLinia":"K/12",
+  "_class":"pl.grafikpka.model.RodzajRozkladu"}
