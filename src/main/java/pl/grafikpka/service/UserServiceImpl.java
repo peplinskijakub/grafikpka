@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
     public void createAdmin(User user) {
         BCryptPasswordEncoder  encoder = new  BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setActive(true );
         Role userRole = Role.ADMIN;
         List<Role> roles = new ArrayList<>();
         roles.add(userRole);

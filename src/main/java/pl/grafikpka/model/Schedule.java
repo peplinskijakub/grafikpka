@@ -34,8 +34,10 @@ public class Schedule {
     private String username;
     @Column(name = "linia")
     private String linia;
+    @DateTimeFormat(pattern = "HH:mm")
     @Column(name = "poczatekPracy")
     private String poczatekPracy;
+    @DateTimeFormat(pattern = "HH:mm")
     @Column(name = "koniecPracy")
     private String koniecPracy;
     @Column(name = "miejsce_zmiany")

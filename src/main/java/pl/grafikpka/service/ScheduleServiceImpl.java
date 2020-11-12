@@ -4,6 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,15 +29,35 @@ import java.util.stream.Collectors;
 public class ScheduleServiceImpl implements ScheduleService {
     private ScheduleRepository scheduleRepository;
     private RozkladRepository rozkladRepository;
+    private final MongoTemplate mongoTemplate;
 
-    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, RozkladRepository rozkladRepository) {
+
+    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, RozkladRepository rozkladRepository, MongoTemplate mongoTemplate) {
         this.scheduleRepository = scheduleRepository;
         this.rozkladRepository = rozkladRepository;
+        this.mongoTemplate = mongoTemplate;
     }
+
+    //    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, RozkladRepository rozkladRepository) throws ParseException {
+//        this.scheduleRepository = scheduleRepository;
+//        this.rozkladRepository = rozkladRepository;
+//    }
+    private static String INNE="INNE";
+    private static String WOLNE="WOLNE";
+    private static String CHORY="CHORY";
+    private static String REZERWA="REZERWA";
+
+    private static LocalDate datePerser = LocalDate.parse("2020-10-03");
+
+//    private String convertStringToTime(String trim) {
+//         LocalTime timePerser = LocalTime.parse("HH:mm");
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+//         return timePerser.format(formatter);
+//    }
+
 
 
     public boolean saveDataFromCsv(MultipartFile file, LocalDate date, TypRozkladu typRozkladu) {
-
         List<Schedule> scheduleList = new ArrayList<>();
         try {
             InputStreamReader reader = new InputStreamReader(file.getInputStream());
@@ -48,8 +72,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 schedule.setLinia(record.get(1).trim());
                 schedule.setPoczatekPracy(record.get(2).trim());
                 schedule.setKoniecPracy(record.get(3).trim());
-                schedule.setMiejsceZmiany(findAllByTypRozkladu(rozkladList,schedule.getTypRozkladu(),
-                        schedule.getLinia(), schedule.getPoczatekPracy()));
+                schedule.setMiejsceZmiany(findAllByTypRozkladu(rozkladList, schedule.getTypRozkladu(),
+                        schedule.getLinia(), String.valueOf(schedule.getPoczatekPracy())));
                 if (record.get(0).isEmpty())
                     continue;
                 scheduleList.add(schedule);
@@ -78,8 +102,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
 
-    public String findAllByTypRozkladu(List<RodzajRozkladu>rozkladList, TypRozkladu typRozkladu, String startLine, String godz) {
-       return rozkladList.stream()
+    public String findAllByTypRozkladu(List<RodzajRozkladu> rozkladList, TypRozkladu typRozkladu, String startLine, String godz) {
+        return rozkladList.stream()
                 .filter(r -> r.getTypRozkladu().equals(typRozkladu) &&
                         r.getLinia().equals(startLine)
                         && r.getGodzina().equals(godz))
@@ -87,11 +111,36 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Set<Schedule> findSchedulesByDate(String username) {
-        return scheduleRepository.findAll().stream()
-                .filter(schedule -> schedule.getUsername()
-                        .equals(username)).collect(Collectors.toSet());
+    public List<Schedule> findSchedulesByDate(String username) {
+        Query query = new Query()
+                .addCriteria(Criteria.where("username").is(username))
+                .with(Sort.by(Sort.Order.asc("date"))).
+                        limit(100);
+        return mongoTemplate.find(query,Schedule.class);
     }
+
+//    @Override
+//    public Set<Schedule> findSchedulesByUsernameAndDate(String username, String date) {
+//        return scheduleRepository.findAll().stream()
+//                .filter(schedule -> schedule.getUsername()
+//                        .equals(username))
+//                .filter(schedule -> schedule.getDate()
+//                        .equals(datePerser.parse(date)))
+//                .collect(Collectors.toSet());
+//    }
+    @Override
+    public List<Schedule> findSchedulesByUsernameAndDate(String username, String date) {
+        Query query = new Query()
+                .addCriteria(Criteria.where("username").is(username))
+                .addCriteria(Criteria.where("date").is(datePerser.parse(date)))
+                .with(Sort.by(Sort.Direction.ASC,"date")).limit(10);
+        return mongoTemplate.find(query,Schedule.class);
+    }
+//@Override
+//public List<Schedule> findSchedulesByUsernameAndDate(String username, String date) {
+//    return scheduleRepository.findAllByDateAndUsername(username,date).stream().collect(Collectors.toList());
+//}
+
 
     @Override
     public void deleteById(String idToDelete) {

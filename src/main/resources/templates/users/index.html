@@ -14,7 +14,7 @@
 <!--/*@thymesVar id="id" type="pl.grafikpka.model.User"*/-->
 <div class="col-md-3">
     <div th:each="schedule : ${schedules}">
-        <div><a href="/users/workDay" th:href="@{'/users/workDay/'}" th:text="${schedule.date}"></a></div>
+        <div><a href="/users/workDay" th:href="@{'/users/workDay/'+ ${schedule.getDate()}}" th:text="${schedule.date}"></a></div>
     </div>
 </div>
 </body>

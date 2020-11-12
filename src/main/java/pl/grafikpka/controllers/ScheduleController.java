@@ -1,6 +1,7 @@
 package pl.grafikpka.controllers;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,18 +16,17 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
+@RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "manager")
 public class ScheduleController {
 
     private static final   String SCHEDULE_SCHEDULEFORM_URL = "manager/schedule/scheduleform";
-    private ScheduleService scheduleService;
-    private UserService userService;
+    private final ScheduleService scheduleService;
+    private final UserService userService;
 
 
-    public ScheduleController(ScheduleService scheduleService) {
-        this.scheduleService = scheduleService;
-    }
+
 
     @GetMapping(value = "/listschedules")
     public String home(Model model) {

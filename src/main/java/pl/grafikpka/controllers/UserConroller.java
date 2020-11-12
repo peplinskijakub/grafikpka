@@ -7,12 +7,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.grafikpka.model.Schedule;
 import pl.grafikpka.service.ScheduleService;
 import pl.grafikpka.service.UserService;
 
-import java.util.Set;
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -23,16 +25,17 @@ public class UserConroller {
     private final ScheduleService scheduleService;
 
     @GetMapping("/index")
-    public String listUsers(@AuthenticationPrincipal UserDetails user, Model model){
+    public String listUsers(@AuthenticationPrincipal UserDetails user, Model model) {
         model.addAttribute("schedule", new Schedule());
-        Set<Schedule> schedules = scheduleService.findSchedulesByDate(user.getUsername());
+        List<Schedule> schedules = scheduleService.findSchedulesByDate(user.getUsername());
         model.addAttribute("schedules", schedules);
         return "users/index";
     }
-    @GetMapping("/workDay")
-    public String schowDriverWorkByUsername(@AuthenticationPrincipal UserDetails user, Model model){
+
+    @GetMapping("/workDay/{date}")
+    public String showDriverDaylyWork(@AuthenticationPrincipal UserDetails user, @PathVariable String date, Model model) {
         model.addAttribute("schedule", new Schedule());
-        Set<Schedule> schedules = scheduleService.findSchedulesByUsername(user.getUsername());
+        List<Schedule> schedules = scheduleService.findSchedulesByUsernameAndDate(user.getUsername(),date);
         model.addAttribute("schedules", schedules);
         return "users/workDay";
     }
