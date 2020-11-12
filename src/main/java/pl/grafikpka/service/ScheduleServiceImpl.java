@@ -121,7 +121,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         Query query = new Query()
                 .addCriteria(Criteria.where("username").is(username))
                 .addCriteria(Criteria.where("date").is(datePerser.parse(date)))
-                .with(Sort.by(Sort.Direction.ASC,"date")).limit(10);
+                .with(Sort.by(Sort.Direction.ASC,"date"))
+                .with(Sort.by(Sort.Direction.ASC,"poczatekPracy"))
+                .limit(10);
         return mongoTemplate.find(query,Schedule.class);
     }
     @Override
