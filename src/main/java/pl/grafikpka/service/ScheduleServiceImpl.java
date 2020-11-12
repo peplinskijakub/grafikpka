@@ -55,8 +55,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 //         return timePerser.format(formatter);
 //    }
 
-
-
     public boolean saveDataFromCsv(MultipartFile file, LocalDate date, TypRozkladu typRozkladu) {
         List<Schedule> scheduleList = new ArrayList<>();
         try {
@@ -118,16 +116,6 @@ public class ScheduleServiceImpl implements ScheduleService {
                         limit(100);
         return mongoTemplate.find(query,Schedule.class);
     }
-
-//    @Override
-//    public Set<Schedule> findSchedulesByUsernameAndDate(String username, String date) {
-//        return scheduleRepository.findAll().stream()
-//                .filter(schedule -> schedule.getUsername()
-//                        .equals(username))
-//                .filter(schedule -> schedule.getDate()
-//                        .equals(datePerser.parse(date)))
-//                .collect(Collectors.toSet());
-//    }
     @Override
     public List<Schedule> findSchedulesByUsernameAndDate(String username, String date) {
         Query query = new Query()
@@ -136,12 +124,6 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .with(Sort.by(Sort.Direction.ASC,"date")).limit(10);
         return mongoTemplate.find(query,Schedule.class);
     }
-//@Override
-//public List<Schedule> findSchedulesByUsernameAndDate(String username, String date) {
-//    return scheduleRepository.findAllByDateAndUsername(username,date).stream().collect(Collectors.toList());
-//}
-
-
     @Override
     public void deleteById(String idToDelete) {
         scheduleRepository.deleteById(idToDelete);
