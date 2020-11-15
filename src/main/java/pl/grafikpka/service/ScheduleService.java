@@ -26,7 +26,7 @@ public interface ScheduleService {
 
     List<Schedule> findAll();
 
-    List<Schedule> findSchedulesByDate(String username);
+    Set<String> findSchedulesByDate(String username);
 
     List<Schedule> findSchedulesByUsernameAndDate(String username, String date);
 }

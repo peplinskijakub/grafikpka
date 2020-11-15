@@ -14,6 +14,7 @@ import pl.grafikpka.service.ScheduleService;
 import pl.grafikpka.service.UserService;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class UserConroller {
     @GetMapping("/index")
     public String listUsers(@AuthenticationPrincipal UserDetails user, Model model) {
         model.addAttribute("schedule", new Schedule());
-        List<Schedule> schedules = scheduleService.findSchedulesByDate(user.getUsername());
+        Set<String> schedules = scheduleService.findSchedulesByDate(user.getUsername());
         model.addAttribute("schedules", schedules);
         return "users/index";
     }

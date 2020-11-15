@@ -14,8 +14,27 @@
 <!--/*@thymesVar id="id" type="pl.grafikpka.model.User"*/-->
 <div class="col-md-3">
     <div th:each="schedule : ${schedules}">
-        <div><a href="/users/workDay" th:href="@{'/users/workDay/'+ ${schedule.getDate()}}" th:text="${schedule.date}"></a></div>
+        <div><a href="/users/workDay" th:href="@{'/users/workDay/'+ ${schedule}}" th:text="${schedule}"></a></div>
     </div>
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <th>No</th>-->
+<!--            <th>Color</th>-->
+<!--            <th>Cars</th>-->
+<!--        </tr>-->
+<!--        <tr th:each="entry, stat : ${schedules}">-->
+<!--            <td th:text="${stat.index + 1}">1</td>-->
+<!--            <td th:text="${entry.key}">color</td>-->
+<!--            <td>-->
+<!--                <table>-->
+<!--                    <tr th:each="car : ${entry.value}">-->
+<!--                        <td th:text="${#dates.format(schedule.getDate(), 'yyyy-MM-dd')}"></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
 </div>
 </body>
 </html>

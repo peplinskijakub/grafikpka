@@ -19,10 +19,13 @@ import pl.grafikpka.repository.ScheduleRepository;
 
 import java.io.InputStreamReader;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
+
 
 @Slf4j
 @Service
@@ -30,6 +33,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     private ScheduleRepository scheduleRepository;
     private RozkladRepository rozkladRepository;
     private final MongoTemplate mongoTemplate;
+    private Schedule schedule;
 
 
     public ScheduleServiceImpl(ScheduleRepository scheduleRepository, RozkladRepository rozkladRepository, MongoTemplate mongoTemplate) {
@@ -109,12 +113,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> findSchedulesByDate(String username) {
+    public Set<String> findSchedulesByDate(String username) {
         Query query = new Query()
                 .addCriteria(Criteria.where("username").is(username))
-                .with(Sort.by(Sort.Order.asc("date"))).
-                        limit(100);
-        return mongoTemplate.find(query,Schedule.class);
+                .with(Sort.by(Sort.Order.asc("date")));
+        List<Schedule> scheduleList = mongoTemplate.find(query, Schedule.class); //Lista z Query
+      Set<String> listToSet = new TreeSet<>();
+      for (Schedule date :scheduleList){
+         String localDate= date.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+          listToSet.add(localDate);
+      }
+        return listToSet;
     }
     @Override
     public List<Schedule> findSchedulesByUsernameAndDate(String username, String date) {
