@@ -4,39 +4,35 @@
 <head th:insert="fragments.html :: headerfiles"></head>
 <div class="container-fluid">
     <header th:insert="fragments.html :: nav"></header>
-<div class="col-md-12">
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Data</th>
-            <th>Rodzaj Rozkladu</th>
-            <th>Nr Służbowy</th>
-            <th>Linia</th>
-            <th>Rozpoczęcie</th>
-            <th>Zakończenie</th>
-            <th>Miejsce Zmiany</th>
-            <!--<th>Zmień</th>-->
-            <!--<th>Usuń</th>-->
-        </tr>
-        </thead>
-        <!--/*@thymesVar id="schedules" type="java.util.List"*/-->
-        <!--/*@thymesVar id="schedules" type="pl.grafikpka.model.User"*/-->
-        <tbody>
-        <tr th:each="schedule : ${schedules}">
-            <td th:text="${schedule.date}">20:01:2019</td>
-            <td th:text="${schedule.typRozkladu}">SOBOTA</td>
-            <td th:text="${schedule.getUsername()}">1111</td>
-            <td th:text="${schedule.linia}">111</td>
-            <td th:text="${schedule.poczatekPracy}">12:00</td>
-            <td th:text="${schedule.koniecPracy}">19.59</td>
-            <td th:text="${schedule.miejsceZmiany}">zmiana</td>
-
-            <!--<td><a href="#" th:href="@{'/schedule/' + ${schedule.id} + '/update'}">Edit</a></td>-->
-            <!--<td><a href="#" th:href="@{'/listschedules/' + ${schedule.id} + '/delete'}">Delete</a></td>-->
-        </tr>
-        </tbody>
-    </table>
+<!--    <section class="workDay" th:each="schedule : ${schedules}">-->
+<!--            <div class="workHours" th:text="${schedule.getLinia()}"></div>-->
+<!--            <div class="workHours" th:text="${schedule.getPoczatekPracy()}"></div>-->
+<!--            <div class="workHours" th:text="${schedule.getKoniecPracy()}"></div>-->
+<!--            <div class="workHours" th:text="${schedule.miejsceZmiany}"></div>-->
+<!--    </section>-->
+<div class="jumbotron">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Linia</th>
+                <th>Rozpoczęcie</th>
+                <th>Zakończenie</th>
+                <th>Miejsce Zmiany</th>
+            </tr>
+            </thead>
+            <!--/*@thymesVar id="schedules" type="java.util.List"*/-->
+            <!--/*@thymesVar id="schedules" type="pl.grafikpka.model.User"*/-->
+            <tbody>
+            <tr th:each="schedule : ${schedules}">
+                <td th:text="${schedule.linia}">111</td>
+                <td th:text="${schedule.poczatekPracy}">12:00</td>
+                <td th:text="${schedule.koniecPracy}">19.59</td>
+                <td th:text="${schedule.miejsceZmiany}">zmiana</td>
+            </tr>
+            </tbody>
+        </table>
 </div>
+
 </div>
 </body>
 </html>
