@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
         List<Role> roles = new ArrayList<>();
         roles.add(userRole);
         user.setRoles(roles);
+        user.setActive(true);
         userRepository.save(user);
         return false;
     }
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
         List<Role> roles = new ArrayList<>();
         roles.add(userRole);
         user.setRoles(roles);
+        user.setActive(true);
         userRepository.save(user);
     }
 
