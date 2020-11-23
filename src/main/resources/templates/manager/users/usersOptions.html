@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments.html :: headerfiles"></head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<div class="container-fluid">
+   <button class="btn-link"><a th:href="@{/manager/users/register}">Zapisz Kierowcę</a></button>
+   <button class="btn-link"><a th:href="@{/manager/users/registerFromFile}">Zapisz listę kierowców (CSV)</a></button>
+</div>
+<footer th:insert="fragments.html :: footer"></footer>
+</body>
+</html>

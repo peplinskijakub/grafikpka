@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments.html :: headerfiles"></head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<div class="container-fluid">
+
+    <div class="col-md-12">
+<!--        <h2>FileUpload</h2>-->
+<!--        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${succesmessage}">-->
+<!--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                <span aria-hidden="true">&times;</span>-->
+<!--            </button>-->
+<!--            &lt;!&ndash;/*@thymesVar id="succesmessage" type="pl.springboot.file.model.User"*/&ndash;&gt;-->
+<!--            <strong th:text="${succesmessage}"></strong>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;/*@thymesVar id="errormessage" type=""*/&ndash;&gt;-->
+<!--        <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errormessage}">-->
+<!--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                <span aria-hidden="true">&times;</span>-->
+<!--            </button>-->
+<!--            <strong th:text="${errormessage}"></strong>-->
+<!--        </div>-->
+
+        <!--/*@thymesVar id="user" type="pl.grafikpka.model.User"*/-->
+        <form th:action="@{'/manager/users/registerFromFile'}" th:object="${user}" method="post"
+              enctype="multipart/form-data">
+            <div class="form-group col-md-3">
+                <label for="file">File Upload(CSV)</label>
+                <input type="file" class="form-control" id="file" name="file" th:field="*{file}">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
@@ -37,6 +39,9 @@ public class User {
     private String permissions = "";
 
     private List<Schedule> schedules;
+
+    @Transient
+    private MultipartFile file;
 
     public User(@NonNull String username, @NonNull String password, boolean isActive, List<Role> roles, String permissions) {
         this.username = username;

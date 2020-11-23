@@ -1,8 +1,10 @@
 package pl.grafikpka.service;
 
 import org.springframework.context.annotation.Profile;
+import org.springframework.web.multipart.MultipartFile;
 import pl.grafikpka.model.User;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,7 @@ public interface UserService {
     boolean isUserPresent(String username);
 
     boolean createUser(User user);
+    boolean createUsersFromFile(MultipartFile file) throws IOException;
 
     List<User> findAll();
 

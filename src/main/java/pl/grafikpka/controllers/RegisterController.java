@@ -7,10 +7,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import pl.grafikpka.model.User;
 import pl.grafikpka.service.UserService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 
 @Controller
@@ -24,10 +26,20 @@ public class RegisterController {
         return "users/index";
     }
 
+    @GetMapping("/usersOptions")
+    public String usersOptions(){
+        return "manager/users/usersOptions";
+    }
+
     @GetMapping("/register")
     public String registerForm(Model model) {
         model.addAttribute("user", new User());
         return "manager/users/registerForm";
+    }
+    @GetMapping("/registerFromFile")
+    public String registerFromFile(Model model) {
+        model.addAttribute("user", new User());
+        return "manager/users/registerFromFile";
     }
 
     @PostMapping("/register")
@@ -42,6 +54,12 @@ public class RegisterController {
         userService.createUser(user);
         return "/success";
 
+    }
+    @PostMapping("/registerFromFile")
+    public String registerUsersFromFile(MultipartFile file, Model model) throws IOException {
+       userService.createUsersFromFile(file);
+            model.addAttribute("exist", true);
+        return "manager/users/usersOptions";
     }
 
 }
