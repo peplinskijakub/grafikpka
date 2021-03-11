@@ -38,13 +38,9 @@ public class UserServiceImpl implements UserService {
         InputStreamReader reader = new InputStreamReader(file.getInputStream());
         CSVParser csvParser = new CSVParser(reader, CSVFormat.newFormat(';')
                 .withRecordSeparator(",").withIgnoreEmptyLines());
-        //FileWriter out = new FileWriter("kontaKierowcow.csv");
-       // CSVPrinter printer = new CSVPrinter(out, CSVFormat.EXCEL);/// zle powinno odczytac plik wygenerowc hasla i zapisać plik na dysku i do db
         List<User> users = new ArrayList<>();
-        String name = "";
         String pass = "";
         for (CSVRecord record : csvParser) {
-            name = record.get(0).trim();
             pass = myPasswordGenerator.generateStrongPassword();
             User user = new User();
             user.setUsername(record.get(0).trim());

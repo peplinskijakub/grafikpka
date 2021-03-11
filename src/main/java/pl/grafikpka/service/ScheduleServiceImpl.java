@@ -41,23 +41,12 @@ public class ScheduleServiceImpl implements ScheduleService {
         this.rozkladRepository = rozkladRepository;
         this.mongoTemplate = mongoTemplate;
     }
-
-    //    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, RozkladRepository rozkladRepository) throws ParseException {
-//        this.scheduleRepository = scheduleRepository;
-//        this.rozkladRepository = rozkladRepository;
-//    }
     private static String INNE="INNE";
     private static String WOLNE="WOLNE";
     private static String CHORY="CHORY";
     private static String REZERWA="REZERWA";
 
     private static LocalDate datePerser = LocalDate.parse("2020-10-03");
-
-//    private String convertStringToTime(String trim) {
-//         LocalTime timePerser = LocalTime.parse("HH:mm");
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-//         return timePerser.format(formatter);
-//    }
 
     public boolean saveDataFromCsv(MultipartFile file, LocalDate date, TypRozkladu typRozkladu) {
         List<Schedule> scheduleList = new ArrayList<>();

@@ -33,6 +33,4 @@ public class RodzajRozkladu {
     private String miejsceZmiany;
     @Column(name = "pierwsza_linia")
     private String pierwszaLinia;
-    //    @Transient
-//    private MultipartFile file;
 }
