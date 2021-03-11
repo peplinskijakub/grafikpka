@@ -15,9 +15,10 @@ public interface UserService {
     boolean isUserPresent(String username);
 
     boolean createUser(User user);
-    boolean createUsersFromFile(MultipartFile file) throws IOException;
 
     List<User> findAll();
 
     Optional<User> findById(String id);
+
+    boolean createUsersFromFile(MultipartFile file) throws IOException;
 }

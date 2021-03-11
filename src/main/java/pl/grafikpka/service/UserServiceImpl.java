@@ -3,7 +3,6 @@ package pl.grafikpka.service;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import pl.grafikpka.model.Role;
 import pl.grafikpka.model.User;
 import pl.grafikpka.repository.UserRepository;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -26,10 +24,6 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final MyPasswordGenerator myPasswordGenerator;
-
-//    public UserServiceImpl(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -44,7 +38,8 @@ public class UserServiceImpl implements UserService {
         InputStreamReader reader = new InputStreamReader(file.getInputStream());
         CSVParser csvParser = new CSVParser(reader, CSVFormat.newFormat(';')
                 .withRecordSeparator(",").withIgnoreEmptyLines());
-        CSVPrinter printer = new CSVPrinter(new FileWriter("kontaKierowcow.csv"), CSVFormat.EXCEL);
+        //FileWriter out = new FileWriter("kontaKierowcow.csv");
+       // CSVPrinter printer = new CSVPrinter(out, CSVFormat.EXCEL);/// zle powinno odczytac plik wygenerowc hasla i zapisać plik na dysku i do db
         List<User> users = new ArrayList<>();
         String name = "";
         String pass = "";
@@ -54,18 +49,13 @@ public class UserServiceImpl implements UserService {
             User user = new User();
             user.setUsername(record.get(0).trim());
             user.setPassword(encoder.encode(pass));
-           // user.setPassword(encoder.encode(myPasswordGenerator.generateStrongPassword()));
-            // Role userRole = Role.USER;
-            // List<Role> roles = new ArrayList<>();
-//            roles.add(userRole);
+            user.setTempPassword(pass);
             user.setRoles(Arrays.asList(Role.USER));
             user.setActive(true);
             users.add(user);
-printer.printRecord(name,pass);
         }
-        userRepository.insert(users);
         reader.close();
-        printer.close();
+        userRepository.insert(users);
         return false;
     }
 
@@ -125,4 +115,5 @@ printer.printRecord(name,pass);
     public Optional<User> findById(String id) {
         return userRepository.findById(id);
     }
+
 }
