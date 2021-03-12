@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.grafikpka.model.Schedule;
 import pl.grafikpka.service.ScheduleService;
-import pl.grafikpka.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,7 +22,7 @@ public class ScheduleController {
 
     private static final   String SCHEDULE_SCHEDULEFORM_URL = "manager/schedule/scheduleform";
     private final ScheduleService scheduleService;
-    private final UserService userService;
+   // private final UserService userService;
 
 
 

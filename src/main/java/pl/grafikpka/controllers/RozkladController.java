@@ -1,5 +1,6 @@
 package pl.grafikpka.controllers;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,17 +13,14 @@ import pl.grafikpka.service.RozkladService;
 import java.util.List;
 
 @Slf4j
+@RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "manager")
 public class RozkladController {
 
     private static final String ROZKLAD_UPDATE_FORM_URL = "manager/rodzRozkladow/updateRozklad";
 
-    private RozkladService rozkladService;
-
-    public RozkladController(RozkladService rozkladService) {
-        this.rozkladService = rozkladService;
-    }
+    private final RozkladService rozkladService;
 
     @GetMapping(value = "/rozklads")
     public String getRozklads(Model model) {
